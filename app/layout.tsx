@@ -6,11 +6,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Movie Checker',
-  description: 'Find your movie you watched or you want to watch.',
+  description: 'Find your movie you watched or you want to watch.'
 }
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {
