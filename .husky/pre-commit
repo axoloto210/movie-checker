@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# ファイルが存在する場合にのみ prettier を実行する
+if [ -n "$(git diff --cached --name-only -- '*.ts' '*.tsx')" ]; then
+  pnpm format $(git diff --cached --name-only -- '*.ts' '*.tsx')
+  git add $(git diff --cached --name-only -- '*.ts' '*.tsx')
+fi
+pnpm lint
