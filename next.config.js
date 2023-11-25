@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     //Next 14から非推奨に。
+    //https://nextjs.org/docs/app/api-reference/components/image#remotepatterns
     // domains: ['lh3.googleusercontent.com', 'avatars.githubusercontent.com']
     remotePatterns: [
       {
