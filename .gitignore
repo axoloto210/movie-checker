@@ -38,3 +38,6 @@ next-env.d.ts
 # docker
 /docker/data
 /docker/init
+
+#environment variables
+.env
