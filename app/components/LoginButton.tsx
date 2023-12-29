@@ -14,7 +14,9 @@ export default function Login() {
   } else {
     return (
       <div>
-        <button onClick={() => signIn()}>ログイン</button>
+        <button className={'blue-button'} onClick={() => signIn()}>
+          ログイン
+        </button>
       </div>
     )
   }
