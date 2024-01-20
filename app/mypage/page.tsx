@@ -1,10 +1,11 @@
 'use client'
 
-import { SessionProvider, signIn, signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import LoginButton from '../components/LoginButton'
 import { NextAuthProvider } from '../providers'
 import Image from 'next/image'
 import ResponsiveAppBar from '../components/Header'
+import { MovieRegistrationForm } from '../components/feature/movieRegistration/MovieRegistrationForm'
 
 export default function Mypage() {
   return (
@@ -21,7 +22,6 @@ function ClientMypage() {
   return (
     <>
       <ResponsiveAppBar userImage={user?.image ?? undefined} />
-      <div>mypage</div>
       {session && (
         <>
           <h2>Welcome {user?.name}</h2>
@@ -31,9 +31,10 @@ function ClientMypage() {
             width={90}
             height={90}
           />
+          <LoginButton />
+          {user?.email && <MovieRegistrationForm userEmail={user?.email} />}
         </>
       )}
-      <LoginButton />
     </>
   )
 }
