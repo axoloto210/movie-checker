@@ -17,6 +17,8 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 
 const pages = ['Movies', '見た映画', 'みんなの感想']
 
+const menuTitle = 'メニューを開く'
+
 type Props = {
   userImage?: string | undefined
 }
@@ -142,7 +144,7 @@ function ResponsiveAppBar(props: Props) {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title={menuTitle}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="" src={props.userImage} />
               </IconButton>
@@ -163,27 +165,20 @@ function ResponsiveAppBar(props: Props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {
-                <>
-                  {session ? (
-                    <>
-                      <MenuItem key={'mypage'} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">マイページ</Typography>
-                      </MenuItem>
-
-                      <MenuItem key={'logout'} onClick={handleLogOut}>
-                        <Typography textAlign="center">ログアウト</Typography>
-                      </MenuItem>
-                    </>
-                  ) : (
-                    <>
-                      <MenuItem key={'logout'} onClick={handleLogIn}>
-                        <Typography textAlign="center">ログイン</Typography>
-                      </MenuItem>
-                    </>
-                  )}
-                </>
-              }
+              {session ? (
+                [
+                  <MenuItem key={'mypage'} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">マイページ</Typography>
+                  </MenuItem>,
+                  <MenuItem key={'logout'} onClick={handleLogOut}>
+                    <Typography textAlign="center">ログアウト</Typography>
+                  </MenuItem>
+                ]
+              ) : (
+                <MenuItem key={'login'} onClick={handleLogIn}>
+                  <Typography textAlign="center">ログイン</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
