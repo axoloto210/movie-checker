@@ -74,7 +74,7 @@ function ClientMyMovie() {
                     <tr>
                       <th>画像</th>
                       <td>
-                        <img src={movie.image} alt={movie.title} />
+                        <img src={movie.image} alt={movie.title} width={120} />
                       </td>
                     </tr>
                   </Fragment>
