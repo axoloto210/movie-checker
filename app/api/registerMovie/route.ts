@@ -1,12 +1,27 @@
 import { NextRequest } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 import { RegisteredMovie } from '@/app/components/feature/movieRegistration/MovieRegistrationForm'
+import { z } from 'zod'
 
 export async function POST(req: NextRequest) {
-  const { title, siteURL, image, userEmail } = await req.json()
-  const user = await getUserId(userEmail)
-  if (user !== null) {
-    createRegisteredMovie({ title, siteURL, image }, user.id)
+  const schema = z.object({
+    title: z.string(),
+    siteURL: z.string(),
+    image: z.string(),
+    userEmail: z.string()
+  })
+
+  try {
+    const { title, siteURL, image, userEmail } = schema.parse(await req.json())
+
+    const user = await getUserId(userEmail)
+    if (user !== null) {
+      createRegisteredMovie({ title, siteURL, image }, user.id)
+    }
+    return Response.json({ title, siteURL, image, status: 200 })
+  } catch (error: unknown) {
+    console.log(error)
+    return Response.json({ status: 500 })
   }
 }
 
@@ -31,4 +46,5 @@ async function createRegisteredMovie(movie: RegisteredMovie, authorId: string) {
       authorId
     }
   })
+  return movie
 }

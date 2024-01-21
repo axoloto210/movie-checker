@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 export type RegisteredMovie = {
@@ -11,6 +12,8 @@ type Props = {
 }
 
 const MovieRegistrationForm = (props: Props) => {
+  const router = useRouter()
+
   const placeholders = {
     title: 'タイトル',
     siteURL: 'サイトURL',
@@ -30,16 +33,13 @@ const MovieRegistrationForm = (props: Props) => {
   } = useForm({ defaultValues })
 
   const onSubmit = async (movie: RegisteredMovie) => {
-    // APIのURL
-    const url = 'http://localhost:3000/api/registerMovie'
-    // リクエストパラメータ
+    const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/registerMovie'
+
     const params = {
       method: 'POST',
-      // JSON形式のデータのヘッダー
       headers: {
         'Content-Type': 'application/json'
       },
-      // リクエストボディ
       body: JSON.stringify({
         title: movie.title,
         siteURL: movie.siteURL,
@@ -48,8 +48,22 @@ const MovieRegistrationForm = (props: Props) => {
       })
     }
 
-    // APIへのリクエスト
     await fetch(url, params)
+      .then((res) => res.json())
+      .then((res) => {
+        const { title, siteURL, image } = res
+        alert(
+          '入力データを登録しました。\n' +
+            'トップページへ移動します。\n' +
+            `タイトル： ${title} \n` +
+            `サイトURL： ${siteURL} \n` +
+            `画像URL： ${image}`
+        )
+        router.push('/')
+      })
+      .catch(() =>
+        alert('エラーが発生しました。時間をあけて再度お試しください。')
+      )
   }
 
   const onError = (err: unknown) => console.log(err)
