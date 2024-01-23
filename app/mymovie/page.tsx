@@ -46,7 +46,13 @@ export default async function MyMovie() {
                     <tr>
                       <th>サイトURL</th>
                       <td>
-                        <a href={movie.siteURL ?? '/'}>{movie.siteURL}</a>
+                        <a
+                          href={movie.siteURL ?? '/'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {movie.siteURL}{' '}
+                        </a>
                       </td>
                     </tr>
                     <tr>
