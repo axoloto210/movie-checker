@@ -21,7 +21,7 @@ function ClientMypage() {
 
   return (
     <>
-      <ResponsiveAppBar userImage={user?.image ?? undefined} />
+      <ResponsiveAppBar />
       {session && (
         <>
           <h2>Welcome {user?.name}</h2>

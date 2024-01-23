@@ -1,3 +1,4 @@
+'use client'
 //以下をベースに作成
 //https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
 
@@ -19,11 +20,7 @@ const pages = ['Movies', '見た映画', 'みんなの感想']
 
 const menuTitle = 'メニューを開く'
 
-type Props = {
-  userImage?: string | undefined
-}
-
-function ResponsiveAppBar(props: Props) {
+function ResponsiveAppBar() {
   const { data: session } = useSession()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -146,7 +143,7 @@ function ResponsiveAppBar(props: Props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={menuTitle}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src={props.userImage} />
+                <Avatar alt="" src={session?.user?.image ?? undefined} />
               </IconButton>
             </Tooltip>
             <Menu

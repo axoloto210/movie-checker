@@ -52,7 +52,7 @@ function ClientMyMovie() {
 
   return (
     <>
-      <ResponsiveAppBar userImage={user?.image ?? undefined} />
+      <ResponsiveAppBar />
       {session && (
         <>
           <h2 className="flex justify-center items-center">登録済み映画</h2>
