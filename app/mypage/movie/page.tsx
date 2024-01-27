@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import { NextAuthProvider } from '../../providers'
 import ResponsiveAppBar from '../../components/Header'
 import { Fragment, useEffect, useState } from 'react'
-import { RegisteredMovie } from '@/app/components/feature/movieRegistration/MovieRegistrationForm'
+import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
 
 export default function MyMoviepage() {
   return (
@@ -20,7 +20,7 @@ function ClientMyMovie() {
 
   const [movies, setMovies] = useState<RegisteredMovie[]>([])
 
-  //getServerSidePropsの方が簡潔。
+  //データ取得はサーバー側で行う方が良いが、クライアント側でも試しに実装。
   useEffect(() => {
     if (user?.email !== undefined) {
       const fetchMovies = async () => {

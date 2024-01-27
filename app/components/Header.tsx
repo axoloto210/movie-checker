@@ -15,13 +15,23 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { signIn, signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-const pages = ['Movies', '見た映画', 'みんなの感想']
+type Route = (typeof routes)[keyof typeof routes]
+
+const routes = { mymovie: '/mymovie', mypage: '/mypage' } as const
+
+const pages = [
+  { title: 'Movies', route: routes.mymovie },
+  { title: '見た映画', route: routes.mymovie }
+] as const
 
 const menuTitle = 'メニューを開く'
 
 function ResponsiveAppBar() {
   const { data: session } = useSession()
+  const router = useRouter()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -53,6 +63,11 @@ function ResponsiveAppBar() {
     signOut()
   }
 
+  const handleClickMenu = (route: Route) => {
+    setAnchorElUser(null)
+    router.push(route)
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -61,7 +76,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -103,8 +117,8 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,7 +128,6 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -131,11 +144,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.title}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link href={page.route}>{page.title}</Link>
               </Button>
             ))}
           </Box>
@@ -164,8 +177,17 @@ function ResponsiveAppBar() {
             >
               {session ? (
                 [
-                  <MenuItem key={'mypage'} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={'mypage'}
+                    onClick={() => handleClickMenu(routes.mypage)}
+                  >
                     <Typography textAlign="center">マイページ</Typography>
+                  </MenuItem>,
+                  <MenuItem
+                    key={'mymovie'}
+                    onClick={() => handleClickMenu(routes.mymovie)}
+                  >
+                    <Typography textAlign="center">MOVIES</Typography>
                   </MenuItem>,
                   <MenuItem key={'logout'} onClick={handleLogOut}>
                     <Typography textAlign="center">ログアウト</Typography>

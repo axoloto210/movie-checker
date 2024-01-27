@@ -28,7 +28,7 @@ export default async function MyMovie() {
       image: true
     }
   })
-
+  //TODO: 画像の縮尺を維持する
   return (
     <>
       {session && (
@@ -40,7 +40,19 @@ export default async function MyMovie() {
                 return (
                   <Fragment key={movie.title}>
                     <tr>
-                      <th>タイトル</th>
+                      <th>{}</th>
+                      <td>
+                        <Image
+                          src={movie.image ?? ''}
+                          alt={movie.title}
+                          width={120}
+                          height={180}
+                          unoptimized={true}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>{}</th>
                       <td>{movie.title}</td>
                     </tr>
                     <tr>
@@ -53,18 +65,6 @@ export default async function MyMovie() {
                         >
                           {movie.siteURL}{' '}
                         </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>画像</th>
-                      <td>
-                        <Image
-                          src={movie.image ?? ''}
-                          alt={movie.title}
-                          width={120}
-                          height={180}
-                          unoptimized={true}
-                        />
                       </td>
                     </tr>
                   </Fragment>

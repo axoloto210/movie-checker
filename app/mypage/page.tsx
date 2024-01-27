@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton'
 import { NextAuthProvider } from '../providers'
 import Image from 'next/image'
 import ResponsiveAppBar from '../components/Header'
-import { MovieRegistrationForm } from '../components/feature/movieRegistration/MovieRegistrationForm'
+import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
 
 export default function Mypage() {
   return (

@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 import { PrismaClient } from '@prisma/client'
-import { RegisteredMovie } from '@/app/components/feature/movieRegistration/MovieRegistrationForm'
+import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
 import { z } from 'zod'
 
 export async function POST(req: NextRequest) {
