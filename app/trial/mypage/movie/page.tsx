@@ -1,8 +1,8 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { NextAuthProvider } from '../../providers'
-import ResponsiveAppBar from '../../components/Header'
+import { NextAuthProvider } from '../../../providers'
+import ResponsiveAppBar from '../../../components/Header'
 import { Fragment, useEffect, useState } from 'react'
 import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
 
