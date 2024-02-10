@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --config .prettierrc 'app/**/*.{ts,tsx}' --write",
+    "postinstall": "prisma generate",
     "prepare": "husky install",
     "type-check": "tsc --noEmit"
   },
