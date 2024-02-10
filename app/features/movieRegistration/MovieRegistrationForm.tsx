@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 export type RegisteredMovie = {
   title: string
   siteURL: string
-  image: string
 }
 
 type Props = {
@@ -16,14 +15,12 @@ const MovieRegistrationForm = (props: Props) => {
 
   const placeholders = {
     title: 'タイトル',
-    siteURL: 'サイトURL',
-    image: '画像URL'
+    siteURL: 'サイトURL'
   }
 
   const defaultValues: RegisteredMovie = {
     title: '',
-    siteURL: '',
-    image: ''
+    siteURL: ''
   }
 
   const {
@@ -43,7 +40,6 @@ const MovieRegistrationForm = (props: Props) => {
       body: JSON.stringify({
         title: movie.title,
         siteURL: movie.siteURL,
-        image: movie.image,
         userEmail: props.userEmail
       })
     }
@@ -51,13 +47,12 @@ const MovieRegistrationForm = (props: Props) => {
     await fetch(url, params)
       .then((res) => res.json())
       .then((res) => {
-        const { title, siteURL, image } = res
+        const { title, siteURL } = res
         alert(
           '入力データを登録しました。\n' +
             'トップページへ移動します。\n' +
             `タイトル： ${title} \n` +
-            `サイトURL： ${siteURL} \n` +
-            `画像URL： ${image}`
+            `サイトURL： ${siteURL}`
         )
         router.push('/')
       })
@@ -99,19 +94,7 @@ const MovieRegistrationForm = (props: Props) => {
             required: '映画のサイトURLを入力してください。'
           })}
         ></textarea>
-
-        <label htmlFor="image" className={'form-label'}>
-          {placeholders.image}
-        </label>
-        <textarea
-          id="image"
-          rows={1}
-          className={'form-text-area'}
-          {...register('image', {
-            required: '映画の画像URLを入力してください。'
-          })}
-        ></textarea>
-
+        <div className="text-red-500">{errors.siteURL?.message}</div>
         <div>
           <button type="submit" className="blue-button mt-4">
             登録

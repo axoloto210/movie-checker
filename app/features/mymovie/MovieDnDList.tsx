@@ -3,12 +3,10 @@ import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 import { Fragment, useState } from 'react'
-import Image from 'next/image'
 
 type Props = {
   movies: {
     title: string
-    image: string | null
     siteURL: string | null
   }[]
 }
@@ -21,14 +19,8 @@ export function MovieDnDList(props: Props) {
         <Fragment key={movie.title}>
           <Droppable key={movie.title} id={String(index)}>
             <Draggable id={String(index)}>
-              <Image
-                id={String(index)}
-                src={movie.image ?? ''}
-                alt={movie.title}
-                width={120}
-                height={180}
-                unoptimized={true}
-              />
+              <div>{movie.title}</div>
+              <div>{movie.siteURL}</div>
             </Draggable>
           </Droppable>
         </Fragment>

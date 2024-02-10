@@ -23,8 +23,7 @@ export default async function MyMovie() {
     },
     select: {
       title: true,
-      siteURL: true,
-      image: true
+      siteURL: true
     }
   })
   //TODO: 画像の縮尺を維持する

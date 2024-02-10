@@ -42,8 +42,7 @@ async function getUserMovies(userId: string) {
     },
     select: {
       title: true,
-      siteURL: true,
-      image: true
+      siteURL: true
     }
   })
   return userMovies
