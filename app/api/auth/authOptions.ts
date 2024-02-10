@@ -15,18 +15,18 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code'
-        }
-      }
     })
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_ID!,
+    //   clientSecret: process.env.GOOGLE_SECRET!,
+    //   authorization: {
+    //     params: {
+    //       prompt: 'consent',
+    //       access_type: 'offline',
+    //       response_type: 'code'
+    //     }
+    //   }
+    // })
   ],
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma)
