@@ -10,7 +10,8 @@
     "format": "prettier --config .prettierrc 'app/**/*.{ts,tsx}' --write",
     "postinstall": "prisma generate",
     "prepare": "husky install",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "vercel-build": "prisma migrate deploy && next build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
