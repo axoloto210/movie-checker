@@ -22,7 +22,7 @@ function ClientMypage() {
   return (
     <>
       <ResponsiveAppBar />
-      {session && (
+      {session ? (
         <>
           <h2>Welcome {user?.name}</h2>
           <Image
@@ -31,8 +31,12 @@ function ClientMypage() {
             width={90}
             height={90}
           />
-          <LoginButton />
           {user?.email && <MovieRegistrationForm userEmail={user?.email} />}
+        </>
+      ) : (
+        <>
+          <div>{`映画情報の管理にはログインが必要です。`}</div>
+          <LoginButton />
         </>
       )}
     </>

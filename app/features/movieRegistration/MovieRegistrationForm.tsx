@@ -65,7 +65,9 @@ const MovieRegistrationForm = (props: Props) => {
 
   return (
     <>
-      <div>映画情報登録フォーム</div>
+      <div className="flex center-text justify-center text-2xl font-semibold text-gray-900 dark:text-white">
+        みた映画を登録
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className="max-w-sm mx-auto"
