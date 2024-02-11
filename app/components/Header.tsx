@@ -23,7 +23,7 @@ type Route = (typeof routes)[keyof typeof routes]
 const routes = { mymovie: '/mymovie', mypage: '/mypage' } as const
 
 const pages = [
-  { title: 'Movies', route: routes.mymovie },
+  { title: 'マイページ', route: routes.mypage },
   { title: '見た映画', route: routes.mymovie }
 ] as const
 
@@ -72,22 +72,24 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            MovieChecker
-          </Typography>
+          <Link href="/" passHref legacyBehavior>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none'
+              }}
+            >
+              MovieChecker
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -124,23 +126,25 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            MovieChecker
-          </Typography>
+          <Link href="/" passHref legacyBehavior>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none'
+              }}
+            >
+              MovieChecker
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -187,7 +191,7 @@ function ResponsiveAppBar() {
                     key={'mymovie'}
                     onClick={() => handleClickMenu(routes.mymovie)}
                   >
-                    <Typography textAlign="center">MOVIES</Typography>
+                    <Typography textAlign="center">見た映画</Typography>
                   </MenuItem>,
                   <MenuItem key={'logout'} onClick={handleLogOut}>
                     <Typography textAlign="center">ログアウト</Typography>

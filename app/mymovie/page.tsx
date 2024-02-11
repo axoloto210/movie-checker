@@ -26,13 +26,12 @@ export default async function MyMovie() {
       siteURL: true
     }
   })
-  //TODO: 画像の縮尺を維持する
 
   return (
     <>
       {session && (
         <>
-          <h2 className="flex justify-center items-center">登録済み映画</h2>
+          <h2 className="flex justify-center items-center">見た映画</h2>
           <MovieDnDList movies={movies} />
         </>
       )}
