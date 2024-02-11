@@ -31,8 +31,6 @@ const MovieRegistrationForm = (props: Props) => {
 
   const onSubmit = async (movie: RegisteredMovie) => {
     const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/registerMovie'
-    console.log(process.env.NEXT_PUBLIC_BASE_URL)
-    console.log(url)
 
     const params = {
       method: 'POST',
