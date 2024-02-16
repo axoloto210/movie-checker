@@ -2,7 +2,8 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
-import { Fragment, useState } from 'react'
+import { Fragment, useId, useState } from 'react'
+import MovieCard from './MovieCard'
 
 type Props = {
   movies: {
@@ -12,20 +13,22 @@ type Props = {
 }
 
 export function MovieDnDList(props: Props) {
+  const id = useId()
   const [movies, setMovies] = useState(props.movies)
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      {movies.map((movie, index) => (
-        <Fragment key={movie.title}>
-          <Droppable key={movie.title} id={String(index)}>
-            <Draggable id={String(index)}>
-              <div>{movie.title}</div>
-              <div>{movie.siteURL}</div>
-            </Draggable>
-          </Droppable>
-        </Fragment>
-      ))}
-    </DndContext>
+    <div className="flex flex-wrap">
+      <DndContext id={id} onDragEnd={handleDragEnd}>
+        {movies.map((movie, index) => (
+          <Fragment key={movie.title}>
+            <Droppable key={movie.title} id={String(index)}>
+              <Draggable id={String(index)}>
+                <MovieCard title={movie.title} siteURL={movie.siteURL} />
+              </Draggable>
+            </Droppable>
+          </Fragment>
+        ))}
+      </DndContext>
+    </div>
   )
 
   function handleDragEnd(event: DragEndEvent) {
