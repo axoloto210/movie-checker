@@ -22,6 +22,7 @@ export default async function MyMovie() {
       authorId: author.id
     },
     select: {
+      id: true,
       title: true,
       siteURL: true
     }
