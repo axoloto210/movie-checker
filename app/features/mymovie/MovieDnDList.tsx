@@ -7,22 +7,29 @@ import MovieCard from './MovieCard'
 
 type Props = {
   movies: {
+    id: number
     title: string
     siteURL: string | null
+    image: string | null
   }[]
 }
 
 export function MovieDnDList(props: Props) {
-  const id = useId()
+  const dndContextId = useId()
   const [movies, setMovies] = useState(props.movies)
   return (
     <div className="flex flex-wrap">
-      <DndContext id={id} onDragEnd={handleDragEnd}>
+      <DndContext id={dndContextId} onDragEnd={handleDragEnd}>
         {movies.map((movie, index) => (
           <Fragment key={movie.title}>
             <Droppable key={movie.title} id={String(index)}>
               <Draggable id={String(index)}>
-                <MovieCard title={movie.title} siteURL={movie.siteURL} />
+                <MovieCard
+                  movieId={movie.id}
+                  title={movie.title}
+                  siteURL={movie.siteURL}
+                  image={movie.image}
+                />
               </Draggable>
             </Droppable>
           </Fragment>

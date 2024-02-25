@@ -2,8 +2,9 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # ファイルが存在する場合にのみ prettier を実行する
-if [ -n "$(git diff --cached --name-only --diff-filter=ACM -- '*.ts' '*.tsx')" ]; then
-  pnpm format $(git diff --cached --name-only -- '*.ts' '*.tsx')
-  git add $(git diff --cached --name-only -- '*.ts' '*.tsx')
+changed_files=$(git diff --cached --name-only --diff-filter=ACM -- '*.ts' '*.tsx')
+if [ -n "$changed_files" ]; then
+  pnpm format $changed_files
+  git add $changed_files
 fi
 pnpm lint
