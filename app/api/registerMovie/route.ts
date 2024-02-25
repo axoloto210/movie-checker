@@ -7,18 +7,19 @@ export async function POST(req: NextRequest) {
   const schema = z.object({
     title: z.string(),
     siteURL: z.string(),
+    image: z.string(),
     userEmail: z.string()
   })
 
   try {
-    const { title, siteURL, userEmail } = schema.parse(await req.json())
+    const { title, siteURL, image, userEmail } = schema.parse(await req.json())
 
     const user = await getUserId(userEmail)
     if (user !== null) {
-      createRegisteredMovie({ title, siteURL }, user.id)
+      createRegisteredMovie({ title, siteURL, image }, user.id)
     }
-    return Response.json({ title, siteURL, status: 200 })
-  } catch (error: unknown) {
+    return Response.json({ title, siteURL, image, status: 200 })
+  } catch (error) {
     console.log(error)
     return Response.json({ status: 500 })
   }

@@ -24,7 +24,8 @@ export default async function MyMovie() {
     select: {
       id: true,
       title: true,
-      siteURL: true
+      siteURL: true,
+      image: true
     }
   })
 
@@ -32,7 +33,9 @@ export default async function MyMovie() {
     <>
       {session && (
         <>
-          <h2 className="flex justify-center items-center">見た映画</h2>
+          <h2 className="flex justify-center items-center text-white bg-mainblue">
+            見た映画
+          </h2>
           <MovieDnDList movies={movies} />
         </>
       )}

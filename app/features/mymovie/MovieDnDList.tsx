@@ -10,6 +10,7 @@ type Props = {
     id: number
     title: string
     siteURL: string | null
+    image: string | null
   }[]
 }
 
@@ -27,6 +28,7 @@ export function MovieDnDList(props: Props) {
                   movieId={movie.id}
                   title={movie.title}
                   siteURL={movie.siteURL}
+                  image={movie.image}
                 />
               </Draggable>
             </Droppable>
