@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import prisma from '@/app/lib/prisma'
 import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
 import { z } from 'zod'
 
@@ -24,8 +24,6 @@ export async function POST(req: NextRequest) {
     return Response.json({ status: 500 })
   }
 }
-
-const prisma = new PrismaClient()
 
 async function getUserId(userEmail: string) {
   const userId = await prisma.user.findUnique({

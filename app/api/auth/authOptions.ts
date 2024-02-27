@@ -1,10 +1,8 @@
 import type { NextAuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+// import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '@/app/lib/prisma'
 
 export const authOptions: NextAuthOptions = {
   //認証情報をconsole上で確認したい場合にはtrueに設定。
