@@ -3,6 +3,13 @@ import prisma from '@/app/lib/prisma'
 import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
 import { z } from 'zod'
 
+export type RegisterMovieResult = {
+  title: string
+  siteURL: string
+  image: string
+  status: number
+}
+
 export async function POST(req: NextRequest) {
   const schema = z.object({
     title: z.string(),
@@ -18,7 +25,9 @@ export async function POST(req: NextRequest) {
     if (user !== null) {
       createRegisteredMovie({ title, siteURL, image }, user.id)
     }
-    return Response.json({ title, siteURL, image, status: 200 })
+
+    const result: RegisterMovieResult = { title, siteURL, image, status: 200 }
+    return Response.json(result)
   } catch (error) {
     console.log(error)
     return Response.json({ status: 500 })
