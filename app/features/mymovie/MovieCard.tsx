@@ -36,7 +36,7 @@ const StyledRoot = styled('div')<{ color?: string }>(
 
 const StyledH2 = styled('h2')(() => ({
   fontFamily: 'Fjalla One',
-  fontSize: '1rem',
+  fontSize: '14px',
   color: '#fff',
   margin: 0
 }))
