@@ -1,4 +1,4 @@
-import { RegisterMovieResult } from '@/app/api/registerMovie/route'
+import { RegisterMovieResult } from '@/app/api/(MyMovie)/registerMovie/route'
 import { postFetch } from '@/app/lib/fetch'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'

@@ -1,5 +1,11 @@
 'use client'
-import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import {
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 import { Fragment, useId, useState } from 'react'
@@ -15,11 +21,18 @@ type Props = {
 }
 
 export function MovieDnDList(props: Props) {
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 5 //カード内でボタンクリックを有効化。5px ドラッグした時にソート機能を有効にする
+    }
+  })
+  const sensors = useSensors(mouseSensor)
+
   const dndContextId = useId()
   const [movies, setMovies] = useState(props.movies)
   return (
     <div className="flex flex-wrap">
-      <DndContext id={dndContextId} onDragEnd={handleDragEnd}>
+      <DndContext id={dndContextId} sensors={sensors} onDragEnd={handleDragEnd}>
         {movies.map((movie, index) => (
           <Fragment key={movie.title}>
             <Droppable key={movie.title} id={String(index)}>
