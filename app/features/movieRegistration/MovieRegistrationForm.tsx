@@ -48,7 +48,7 @@ const MovieRegistrationForm = (props: Props) => {
             `サイトURL： ${siteURL} \n` +
             `画像URL： ${image}`
         )
-        router.push('/mymovie')
+        window.location.href = '/mymovie'
       })
       .catch(() =>
         alert('エラーが発生しました。時間をあけて再度お試しください。')

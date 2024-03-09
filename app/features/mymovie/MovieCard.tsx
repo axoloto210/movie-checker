@@ -72,9 +72,11 @@ type CustomCardProps = {
   copyRights?: string
 } & Props
 
-const clickDeleteHandler = async (movieId: number) => {
-  await deleteFetch(`/deleteMovie/${movieId}`)
-  window.location.reload()
+const clickDeleteHandler = async (movieId: number, title: string) => {
+  if (confirm(`「${title}」を削除しますか？`)) {
+    await deleteFetch(`/deleteMovie/${movieId}`)
+    window.location.reload()
+  }
 }
 
 const CustomCard = (props: CustomCardProps) => {
@@ -107,7 +109,7 @@ const CustomCard = (props: CustomCardProps) => {
             </Box>
             <Box
               component="button"
-              onClick={() => clickDeleteHandler(props.movieId)}
+              onClick={() => clickDeleteHandler(props.movieId, props.title)}
               marginTop={6}
               className="text-white hover:text-red-500 text-xs"
             >
