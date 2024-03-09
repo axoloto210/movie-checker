@@ -1,3 +1,5 @@
+import { RegisterMovieResult } from '@/app/api/(MyMovie)/registerMovie/route'
+import { postFetch } from '@/app/lib/fetch'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
@@ -33,25 +35,13 @@ const MovieRegistrationForm = (props: Props) => {
   } = useForm({ defaultValues })
 
   const onSubmit = async (movie: RegisteredMovie) => {
-    const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/registerMovie'
-
-    const params = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title: movie.title,
-        siteURL: movie.siteURL,
-        image: movie.image,
-        userEmail: props.userEmail
-      })
+    const body = {
+      ...movie,
+      userEmail: props.userEmail
     }
 
-    await fetch(url, params)
-      .then((res) => res.json())
-      .then((res) => {
-        const { title, siteURL, image } = res
+    await postFetch<object, RegisterMovieResult>('/registerMovie', body)
+      .then(({ title, siteURL, image }) => {
         alert(
           '入力データを登録しました。\n' +
             `タイトル： ${title} \n` +

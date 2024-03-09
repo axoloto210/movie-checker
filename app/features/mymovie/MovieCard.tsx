@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Color from 'color'
+import { deleteFetch } from '@/app/lib/fetch'
 
 const defaultColor = '#1976D2'
 const cardWidth = 200
@@ -36,7 +37,7 @@ const StyledRoot = styled('div')<{ color?: string }>(
 
 const StyledH2 = styled('h2')(() => ({
   fontFamily: 'Fjalla One',
-  fontSize: '1rem',
+  fontSize: '14px',
   color: '#fff',
   margin: 0
 }))
@@ -71,28 +72,46 @@ type CustomCardProps = {
   copyRights?: string
 } & Props
 
-const CustomCard = ({ color, logo, title, siteURL }: CustomCardProps) => {
+const clickDeleteHandler = async (movieId: number) => {
+  await deleteFetch(`/deleteMovie/${movieId}`)
+  window.location.reload()
+}
+
+const CustomCard = (props: CustomCardProps) => {
   return (
-    <StyledRoot color={color}>
-      <StyledContent color={color}>
+    <StyledRoot color={props.color}>
+      <StyledContent color={props.color}>
         <Box position={'relative'} width={cardWidth} height={cardHeight}>
           <Box display="flex" p={0} gap={2} sx={{ flexWrap: 'nowrap' }}>
             <Box>
-              <AvatarLogo src={logo} />
+              <AvatarLogo src={props.logo} />
             </Box>
             <Box alignSelf="flex-end">
-              <StyledH2>{<>{title}</>}</StyledH2>
+              <StyledH2>{<>{props.title}</>}</StyledH2>
             </Box>
           </Box>
-          <Box display="flex" mt={4} alignItems={'center'}>
+          <Box
+            display="flex"
+            mt={4}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+          >
             <Box
               component="a"
-              href={siteURL ?? '/'}
+              href={props.siteURL ?? '/'}
               target="_blank"
               marginTop={6}
-              className="text-white hover:text-green-500 pr-4 text-xs"
+              className="text-white hover:text-green-500 text-xs"
             >
               公式サイトへ
+            </Box>
+            <Box
+              component="button"
+              onClick={() => clickDeleteHandler(props.movieId)}
+              marginTop={6}
+              className="text-white hover:text-red-500 text-xs"
+            >
+              削除
             </Box>
           </Box>
         </Box>
