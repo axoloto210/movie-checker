@@ -1,13 +1,13 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/authOptions'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import prisma from '../lib/prisma'
 import { MovieDnDList } from '../features/mymovie/MovieDnDList'
 
 export default async function MyMovie() {
   const session = await getServerSession(authOptions)
   if (!session) {
-    notFound()
+    redirect('/mypage')
   }
   const author = await prisma.user.findFirst({
     where: { email: session.user?.email },
@@ -15,7 +15,7 @@ export default async function MyMovie() {
   })
 
   if (author === null) {
-    return notFound()
+    redirect('/mypage')
   }
   const movies = await prisma.movie.findMany({
     where: {

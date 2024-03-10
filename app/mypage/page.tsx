@@ -6,6 +6,7 @@ import { NextAuthProvider } from '../providers'
 import Image from 'next/image'
 import ResponsiveAppBar from '../components/Header'
 import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
+import { LoginLoading } from '../components/LoginLoading'
 
 export default function Mypage() {
   return (
@@ -16,13 +17,15 @@ export default function Mypage() {
 }
 
 function ClientMypage() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const user = session?.user
 
   return (
     <>
       <ResponsiveAppBar />
-      {session ? (
+      {status === 'loading' ? (
+        <LoginLoading />
+      ) : status === 'authenticated' ? (
         <>
           <h2>Welcome {user?.name}</h2>
           <Image
