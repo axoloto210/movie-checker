@@ -15,14 +15,24 @@ export default function Mypage() {
   )
 }
 
+function Loading() {
+  return (
+    <h2 className="px-3 py-1 mt-1 text-base font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
+      ログイン状態を確認中...
+    </h2>
+  )
+}
+
 function ClientMypage() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const user = session?.user
 
   return (
     <>
       <ResponsiveAppBar />
-      {session ? (
+      {status === 'loading' ? (
+        <Loading />
+      ) : status === 'authenticated' ? (
         <>
           <h2>Welcome {user?.name}</h2>
           <Image
