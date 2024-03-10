@@ -9,20 +9,11 @@ import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegist
 import { LoginLoading } from '../components/LoginLoading'
 
 export default function Mypage() {
-  return (
-    <NextAuthProvider>
-      <ClientMypage />
-    </NextAuthProvider>
-  )
-}
-
-function ClientMypage() {
   const { data: session, status } = useSession()
   const user = session?.user
 
   return (
     <>
-      <ResponsiveAppBar />
       {status === 'loading' ? (
         <LoginLoading />
       ) : status === 'authenticated' ? (

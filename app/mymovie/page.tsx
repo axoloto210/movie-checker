@@ -29,16 +29,5 @@ export default async function MyMovie() {
     }
   })
 
-  return (
-    <>
-      {session && (
-        <>
-          <h2 className="flex justify-center items-center text-white bg-mainblue">
-            見た映画
-          </h2>
-          <MovieDnDList movies={movies} />
-        </>
-      )}
-    </>
-  )
+  return <>{session && <MovieDnDList movies={movies} />}</>
 }

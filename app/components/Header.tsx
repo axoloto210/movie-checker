@@ -29,7 +29,11 @@ const pages = [
 
 const menuTitle = 'メニューを開く'
 
-function ResponsiveAppBar() {
+type Props = {
+  title?: string
+}
+
+function ResponsiveAppBar(props: Props) {
   const { data: session } = useSession()
   const router = useRouter()
 
@@ -205,6 +209,11 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
         </Toolbar>
+        {props.title && (
+          <h2 className="flex justify-center items-center text-white bg-mainblue">
+            {props.title}
+          </h2>
+        )}
       </Container>
     </AppBar>
   )
