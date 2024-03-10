@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server'
-import prisma from '@/app/lib/prisma'
 import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
+import prisma from '@/app/lib/prisma'
+import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
 export type RegisterMovieResult = {

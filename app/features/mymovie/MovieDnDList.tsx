@@ -6,9 +6,9 @@ import {
   useSensor,
   useSensors
 } from '@dnd-kit/core'
+import { Fragment, useId, useState } from 'react'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
-import { Fragment, useId, useState } from 'react'
 import MovieCard from './MovieCard'
 
 type Props = {

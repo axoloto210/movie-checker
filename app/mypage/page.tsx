@@ -1,12 +1,9 @@
 'use client'
-
 import { useSession } from 'next-auth/react'
-import LoginButton from '../components/LoginButton'
-import { NextAuthProvider } from '../providers'
 import Image from 'next/image'
-import ResponsiveAppBar from '../components/Header'
-import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
+import LoginButton from '../components/LoginButton'
 import { LoginLoading } from '../components/LoginLoading'
+import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
 
 export default function Mypage() {
   const { data: session, status } = useSession()

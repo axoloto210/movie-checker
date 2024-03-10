@@ -1,12 +1,12 @@
 'use client'
 
-import React from 'react'
+import { deleteFetch } from '@/app/lib/fetch'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Color from 'color'
-import { deleteFetch } from '@/app/lib/fetch'
+import React from 'react'
 
 const defaultColor = '#1976D2'
 const cardWidth = 200

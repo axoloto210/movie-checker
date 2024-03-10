@@ -1,6 +1,6 @@
+import { authOptions } from '@/app/api/auth/authOptions'
 import prisma from '@/app/lib/prisma'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/authOptions'
 import { NextRequest } from 'next/server'
 
 export async function DELETE(

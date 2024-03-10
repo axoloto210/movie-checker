@@ -1,5 +1,5 @@
-import React from 'react'
 import { useDroppable } from '@dnd-kit/core'
+import React from 'react'
 
 export function Droppable(props: any) {
   const { setNodeRef } = useDroppable({
