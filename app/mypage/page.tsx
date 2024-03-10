@@ -6,20 +6,13 @@ import { NextAuthProvider } from '../providers'
 import Image from 'next/image'
 import ResponsiveAppBar from '../components/Header'
 import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
+import { LoginLoading } from '../components/LoginLoading'
 
 export default function Mypage() {
   return (
     <NextAuthProvider>
       <ClientMypage />
     </NextAuthProvider>
-  )
-}
-
-function Loading() {
-  return (
-    <h2 className="px-3 py-1 mt-1 text-base font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
-      ログイン状態を確認中...
-    </h2>
   )
 }
 
@@ -31,7 +24,7 @@ function ClientMypage() {
     <>
       <ResponsiveAppBar />
       {status === 'loading' ? (
-        <Loading />
+        <LoginLoading />
       ) : status === 'authenticated' ? (
         <>
           <h2>Welcome {user?.name}</h2>
