@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <section
+    class="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12"
+  >
+    <h1
+      class="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8 ml-4"
+    >
+      Movie Checker
+    </h1>
+    <h4
+      class="text-center md:text-left text-lg mt-5 md:pl-8 mr-4"
+    >
+      Movie check app.
+      <br />
+      Manage movies you've watched and movies you want to watch.
+      <br />
+      <br />
+      見た映画、見たい映画を管理しよう。
+    </h4>
+  </section>
+  <div
+    class="flex justify-center mb-4"
+  >
+    <a
+      class="blue-button w-48 text-center"
+      href="/mypage"
+    >
+      Get start
+    </a>
+  </div>
+  <img
+    alt="main Image"
+    data-nimg="1"
+    decoding="async"
+    height="300"
+    loading="lazy"
+    src="/_next/image?url=%2Ffavicon.ico&w=3840&q=75"
+    srcset="/_next/image?url=%2Ffavicon.ico&w=3840&q=75 1x"
+    style="color: transparent;"
+    width="10000"
+  />
+  <h4 />
+</div>
+`;
