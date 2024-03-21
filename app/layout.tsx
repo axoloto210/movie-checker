@@ -35,7 +35,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <meta property="og:image" content={`${url}/opengraph-image.png`} />
       <body className={inter.className}>
         {children}
         <Analytics />
