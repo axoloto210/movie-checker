@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 const siteName = 'Movie Checker'
 const description =
   'Find your movie you watched or you want to watch. みた映画・みたい映画を管理しよう。'
-const url = 'https://movie-checker-omega.vercel.app'
+const url = `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.jpg`
 
 export const metadata: Metadata = {
   title: siteName,
@@ -19,8 +19,7 @@ export const metadata: Metadata = {
     url,
     siteName,
     locale: 'ja_JP',
-    type: 'website',
-    images: `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.jpg`
+    type: 'website'
   }
 }
 
