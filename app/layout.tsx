@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     url,
     siteName,
     locale: 'ja_JP',
-    type: 'website'
+    type: 'website',
+    images: `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.jpg`
   }
 }
 
