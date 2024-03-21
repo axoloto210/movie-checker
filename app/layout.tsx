@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -8,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 const siteName = 'Movie Checker'
 const description =
   'Find your movie you watched or you want to watch. みた映画・みたい映画を管理しよう。'
-const url = `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.jpg`
+const url = 'https://movie-checker-omega.vercel.app'
 
 export const metadata: Metadata = {
   title: siteName,
