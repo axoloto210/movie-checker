@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -21,7 +19,12 @@ export const metadata: Metadata = {
     url,
     siteName,
     locale: 'ja_JP',
-    type: 'website'
+    type: 'website',
+    images: [
+      {
+        url: `${url}/opengraph-image.jpg`
+      }
+    ]
   }
 }
 
@@ -32,6 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <meta property="og:image" content={`${url}/opengraph-image.png`} />
       <body className={inter.className}>
         {children}
         <Analytics />
