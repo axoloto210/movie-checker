@@ -40,7 +40,7 @@ export function MovieDnDList(props: Props) {
                 <MovieCard
                   movieId={movie.id}
                   title={movie.title}
-                  siteURL={movie.siteURL}
+                  siteURL={movie.siteURL ?? '/'}
                   image={movie.image}
                 />
               </Draggable>

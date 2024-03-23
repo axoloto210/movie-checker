@@ -66,12 +66,6 @@ const AvatarLogo = styled(Avatar)(() => ({
   borderRadius: '1rem'
 }))
 
-type CustomCardProps = {
-  color?: string
-  logo?: string
-  copyRights?: string
-} & Props
-
 const clickDeleteHandler = async (movieId: number, title: string) => {
   if (confirm(`「${title}」を削除しますか？`)) {
     await deleteFetch(`/deleteMovie/${movieId}`)
@@ -79,53 +73,10 @@ const clickDeleteHandler = async (movieId: number, title: string) => {
   }
 }
 
-const CustomCard = (props: CustomCardProps) => {
-  return (
-    <StyledRoot color={props.color}>
-      <StyledContent color={props.color}>
-        <Box position={'relative'} width={cardWidth} height={cardHeight}>
-          <Box display="flex" p={0} gap={2} sx={{ flexWrap: 'nowrap' }}>
-            <Box>
-              <AvatarLogo src={props.logo} />
-            </Box>
-            <Box alignSelf="flex-end">
-              <StyledH2>{<>{props.title}</>}</StyledH2>
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            mt={4}
-            alignItems={'center'}
-            justifyContent={'space-between'}
-          >
-            <Box
-              component="a"
-              href={props.siteURL ?? '/'}
-              target="_blank"
-              marginTop={6}
-              className="text-white hover:text-green-500 text-xs"
-            >
-              公式サイトへ
-            </Box>
-            <Box
-              component="button"
-              onClick={() => clickDeleteHandler(props.movieId, props.title)}
-              marginTop={6}
-              className="text-white hover:text-red-500 text-xs"
-            >
-              削除
-            </Box>
-          </Box>
-        </Box>
-      </StyledContent>
-    </StyledRoot>
-  )
-}
-
 type Props = {
   movieId: number
   title: string
-  siteURL: string | null
+  siteURL: string
   image: string | null
 }
 
@@ -133,14 +84,44 @@ export default function MovieCard(props: Props) {
   return (
     <>
       <Grid item>
-        <CustomCard
-          color={defaultColor}
-          logo={props?.image ? props.image : '/favicon.ico'}
-          title={props.title}
-          siteURL={props.siteURL}
-          movieId={props.movieId}
-          image={props.image}
-        />
+        <StyledRoot>
+          <StyledContent>
+            <Box position={'relative'} width={cardWidth} height={cardHeight}>
+              <Box display="flex" p={0} gap={2} sx={{ flexWrap: 'nowrap' }}>
+                <Box>
+                  <AvatarLogo src={props.image ?? '/favicon.ico'} />
+                </Box>
+                <Box alignSelf="flex-end">
+                  <StyledH2>{<>{props.title}</>}</StyledH2>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                mt={4}
+                alignItems={'center'}
+                justifyContent={'space-between'}
+              >
+                <Box
+                  component="a"
+                  href={props.siteURL}
+                  target="_blank"
+                  marginTop={6}
+                  className="text-white hover:text-green-500 text-xs"
+                >
+                  公式サイトへ
+                </Box>
+                <Box
+                  component="button"
+                  onClick={() => clickDeleteHandler(props.movieId, props.title)}
+                  marginTop={6}
+                  className="text-white hover:text-red-500 text-xs"
+                >
+                  削除
+                </Box>
+              </Box>
+            </Box>
+          </StyledContent>
+        </StyledRoot>
       </Grid>
     </>
   )
