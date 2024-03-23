@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 const siteName = 'Movie Checker'
 const description =
-  'Find your movie you watched or you want to watch. みた映画・みたい映画を管理しよう。'
-const url = 'https://movie-checker-omega.vercel.app'
+  'みた映画・みたい映画を管理しよう。Find your movie you watched or you want to watch.'
+const url = 'https://movie-checker.com'
 
 export const metadata: Metadata = {
   title: siteName,

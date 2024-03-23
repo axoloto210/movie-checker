@@ -8,14 +8,14 @@ export default function Home() {
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8 ml-4">
           Movie Checker
         </h1>
-        <h4 className="text-center md:text-left text-lg mt-5 md:pl-8 mr-4">
+        <h2 className="text-center md:text-left text-lg mt-5 md:pl-8 mr-4">
           {`Movie check app.`}
           <br />
           {`Manage movies you've watched and movies you want to watch.`}
           <br />
           <br />
-          {`見た映画、見たい映画を管理しよう。`}
-        </h4>
+          {`みた映画、みたい映画を管理しよう。`}
+        </h2>
       </section>
       <div className="flex justify-center mb-4">
         <Link className="blue-button w-48 text-center" href={'/mypage'}>
@@ -23,7 +23,6 @@ export default function Home() {
         </Link>
       </div>
       <Image src="/favicon.ico" alt="main Image" width={10000} height={300} />
-      <h4></h4>
     </>
   )
 }
