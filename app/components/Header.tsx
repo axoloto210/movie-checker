@@ -16,18 +16,25 @@ import Typography from '@mui/material/Typography'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import * as React from 'react'
+import { useState } from 'react'
+
+//TODO: インラインスタイルが見づらいので、別の書き方に変えたい。
+
+const menuTitle = 'メニューを開く'
+
+const routes = {
+  mymovie: '/mymovie',
+  mypage: '/mypage',
+  publicMovie: '/public-movie'
+} as const
 
 type Route = (typeof routes)[keyof typeof routes]
 
-const routes = { mymovie: '/mymovie', mypage: '/mypage' } as const
-
 const pages = [
   { title: 'マイページ', route: routes.mypage },
-  { title: '見た映画', route: routes.mymovie }
+  { title: '見た映画', route: routes.mymovie },
+  { title: '映画を探す', route: routes.publicMovie }
 ] as const
-
-const menuTitle = 'メニューを開く'
 
 type Props = {
   title?: string
@@ -37,10 +44,8 @@ function ResponsiveAppBar(props: Props) {
   const { data: session } = useSession()
   const router = useRouter()
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  )
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -154,7 +159,12 @@ function ResponsiveAppBar(props: Props) {
               <Button
                 key={page.title}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  '&:hover': { color: '#34D399' }
+                }}
               >
                 <Link href={page.route}>{page.title}</Link>
               </Button>
@@ -183,29 +193,41 @@ function ResponsiveAppBar(props: Props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {session ? (
-                [
-                  <MenuItem
-                    key={'mypage'}
-                    onClick={() => handleClickMenu(routes.mypage)}
-                  >
-                    <Typography textAlign="center">マイページ</Typography>
-                  </MenuItem>,
-                  <MenuItem
-                    key={'mymovie'}
-                    onClick={() => handleClickMenu(routes.mymovie)}
-                  >
-                    <Typography textAlign="center">見た映画</Typography>
-                  </MenuItem>,
-                  <MenuItem key={'logout'} onClick={handleLogOut}>
-                    <Typography textAlign="center">ログアウト</Typography>
-                  </MenuItem>
-                ]
-              ) : (
-                <MenuItem key={'login'} onClick={handleLogIn}>
-                  <Typography textAlign="center">ログイン</Typography>
-                </MenuItem>
-              )}
+              {session
+                ? [
+                    <MenuItem
+                      key={'mypage'}
+                      onClick={() => handleClickMenu(routes.mypage)}
+                    >
+                      <Typography textAlign="center">マイページ</Typography>
+                    </MenuItem>,
+                    <MenuItem
+                      key={'mymovie'}
+                      onClick={() => handleClickMenu(routes.mymovie)}
+                    >
+                      <Typography textAlign="center">見た映画</Typography>
+                    </MenuItem>,
+                    <MenuItem
+                      key={'public-movie'}
+                      onClick={() => handleClickMenu(routes.publicMovie)}
+                    >
+                      <Typography textAlign="center">映画を探す</Typography>
+                    </MenuItem>,
+                    <MenuItem key={'logout'} onClick={handleLogOut}>
+                      <Typography textAlign="center">ログアウト</Typography>
+                    </MenuItem>
+                  ]
+                : [
+                    <MenuItem
+                      key={'public-movie'}
+                      onClick={() => handleClickMenu(routes.publicMovie)}
+                    >
+                      <Typography textAlign="center">映画を探す</Typography>
+                    </MenuItem>,
+                    <MenuItem key={'login'} onClick={handleLogIn}>
+                      <Typography textAlign="center">ログイン</Typography>
+                    </MenuItem>
+                  ]}
             </Menu>
           </Box>
         </Toolbar>
