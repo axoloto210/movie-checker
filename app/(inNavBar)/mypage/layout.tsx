@@ -1,5 +1,5 @@
-import ResponsiveAppBar from '../components/Header'
-import { NextAuthProvider } from '../providers'
+import ResponsiveAppBar from '../../components/Header'
+import { NextAuthProvider } from '../../providers'
 
 export default function MyPageLayout({
   children

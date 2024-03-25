@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import { authOptions } from '../api/auth/authOptions'
-import { MovieDnDList } from '../features/mymovie/MovieDnDList'
-import prisma from '../lib/prisma'
+import { authOptions } from '../../api/auth/authOptions'
+import { MovieDnDList } from '../../features/mymovie/MovieDnDList'
+import prisma from '../../lib/prisma'
 
 export default async function MyMovie() {
   const session = await getServerSession(authOptions)

@@ -1,9 +1,9 @@
 'use client'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import LoginButton from '../components/LoginButton'
-import { LoginLoading } from '../components/LoginLoading'
-import { MovieRegistrationForm } from '../features/movieRegistration/MovieRegistrationForm'
+import LoginButton from '../../components/LoginButton'
+import { LoginLoading } from '../../components/LoginLoading'
+import { MovieRegistrationForm } from '../../features/movieRegistration/MovieRegistrationForm'
 
 export default function Mypage() {
   const { data: session, status } = useSession()
