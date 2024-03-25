@@ -10,7 +10,7 @@ exports[`renders homepage unchanged 1`] = `
     >
       Movie Checker
     </h1>
-    <h4
+    <h2
       class="text-center md:text-left text-lg mt-5 md:pl-8 mr-4"
     >
       Movie check app.
@@ -18,8 +18,8 @@ exports[`renders homepage unchanged 1`] = `
       Manage movies you've watched and movies you want to watch.
       <br />
       <br />
-      見た映画、見たい映画を管理しよう。
-    </h4>
+      みた映画、みたい映画を管理しよう。
+    </h2>
   </section>
   <div
     class="flex justify-center mb-4"
@@ -42,6 +42,5 @@ exports[`renders homepage unchanged 1`] = `
     style="color: transparent;"
     width="10000"
   />
-  <h4 />
 </div>
 `;
