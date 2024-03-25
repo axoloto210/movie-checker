@@ -1,5 +1,5 @@
-import ResponsiveAppBar from '@/app/components/Header'
-import { NextAuthProvider } from '@/app/providers'
+import ResponsiveAppBar from 'app/components/Header'
+import { NextAuthProvider } from 'app/providers'
 
 //TODO: ナビゲーションバーを使用するlayoutを統一
 export default function PublicMovieLayout({

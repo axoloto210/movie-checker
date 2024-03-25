@@ -1,5 +1,4 @@
-import ResponsiveAppBar from '../../components/Header'
-import { NextAuthProvider } from '../../providers'
+import ResponsiveAppBar from 'app/components/Header'
 
 export default function MyMovieLayout({
   children
@@ -8,10 +7,8 @@ export default function MyMovieLayout({
 }) {
   return (
     <>
-      <NextAuthProvider>
         <ResponsiveAppBar title={'見た映画'} />
         {children}
-      </NextAuthProvider>
     </>
   )
 }

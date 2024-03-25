@@ -1,5 +1,4 @@
-import ResponsiveAppBar from '../../components/Header'
-import { NextAuthProvider } from '../../providers'
+import ResponsiveAppBar from 'app/components/Header'
 
 export default function MyPageLayout({
   children
@@ -8,10 +7,8 @@ export default function MyPageLayout({
 }) {
   return (
     <>
-      <NextAuthProvider>
         <ResponsiveAppBar title={'マイページ'} />
         {children}
-      </NextAuthProvider>
     </>
   )
 }
