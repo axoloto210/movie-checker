@@ -7,8 +7,8 @@ export default function MyPageLayout({
 }) {
   return (
     <>
-        <ResponsiveAppBar title={'マイページ'} />
-        {children}
+      <ResponsiveAppBar title={'マイページ'} />
+      {children}
     </>
   )
 }

@@ -9,10 +9,8 @@ export default function PublicMovieLayout({
 }) {
   return (
     <>
-      <NextAuthProvider>
-        <ResponsiveAppBar title={'映画を探す'} />
-        {children}
-      </NextAuthProvider>
+      <ResponsiveAppBar title={'映画を探す'} />
+      {children}
     </>
   )
 }
