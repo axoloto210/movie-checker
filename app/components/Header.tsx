@@ -156,18 +156,19 @@ function ResponsiveAppBar(props: Props) {
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page.title}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block',
-                  '&:hover': { color: '#34D399' }
-                }}
-              >
-                <Link href={page.route}>{page.title}</Link>
-              </Button>
+              <Link key={page.title} href={page.route}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                    '&:hover': { color: '#34D399' }
+                  }}
+                >
+                  {page.title}
+                </Button>
+              </Link>
             ))}
           </Box>
 
