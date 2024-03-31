@@ -11,6 +11,7 @@ const description =
 const url = 'https://movie-checker.com'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(url),
   title: siteName,
   description,
   openGraph: {
