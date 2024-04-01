@@ -1,7 +1,7 @@
 datasource db {
-  provider          = "postgresql"
-  url               = env("POSTGRES_PRISMA_URL")
-  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 generator client {
@@ -64,6 +64,14 @@ model Movie {
   image     String?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+}
+
+model PublicMovie {
+  id              Int      @id @default(autoincrement())
+  publicationDate DateTime? @db.Date
+  title           String
+  siteURL         String?
+  image           String?
 }
 
 enum Role {
