@@ -63,6 +63,7 @@
     "postcss": "^8",
     "prettier": "^3.1.0",
     "prisma": "^5.7.1",
+    "sass": "^1.72.0",
     "storybook": "^7.6.17",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
