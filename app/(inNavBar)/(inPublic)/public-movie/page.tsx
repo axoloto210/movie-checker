@@ -1,4 +1,8 @@
-import { getAllPublicMovies } from '@/app/features/public-movie/getAllPublicMovies'
+import { PublicMovieCard } from '@/app/features/public-movie/PublicMovieCard'
+import {
+  PublicMovie,
+  getAllPublicMovies
+} from '@/app/features/public-movie/getAllPublicMovies'
 
 export default async function PublicMovie() {
   const publicMovies = await getAllPublicMovies()
@@ -6,13 +10,9 @@ export default async function PublicMovie() {
   return (
     <>
       <div>
-        <div>public movie page!</div>
+        <div>準備中です。</div>
         {publicMovies.map((publicMovie) => {
-          return (
-            <div key={publicMovie.id}>
-              {publicMovie.title} 公開日: {publicMovie.publicationDate}
-            </div>
-          )
+          return <PublicMovieCard key={publicMovie.id} {...publicMovie} />
         })}
       </div>
     </>
