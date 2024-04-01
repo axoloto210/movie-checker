@@ -36,11 +36,11 @@ const pages = [
   { title: 'マイページ', route: routes.mypage },
   { title: '見た映画', route: routes.mymovie },
   { title: '映画を探す', route: routes.publicMovie }
-] as const satisfies Page[]
+] as const satisfies Readonly<Page[]>
 
 const publicPages = [
   { title: '映画を探す', route: routes.publicMovie }
-] as const satisfies Page[]
+] as const satisfies Readonly<Page[]>
 
 type Props = {
   title?: string
