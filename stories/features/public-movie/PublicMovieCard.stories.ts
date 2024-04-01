@@ -10,7 +10,7 @@ export default meta
 
 export const MovieCardStory: StoryObj = {
   args: {
-    publicMovie: {
+    ...{
       id: 1,
       title: 'Movie Checker',
       siteURL: 'https://movie-checker.com',
@@ -22,7 +22,7 @@ export const MovieCardStory: StoryObj = {
 
 export const MovieCardImageStory: StoryObj = {
   args: {
-    publicMovie: {
+    ...{
       id: 210,
       title: 'Movie Checker',
       siteURL: 'https://movie-checker.com',
