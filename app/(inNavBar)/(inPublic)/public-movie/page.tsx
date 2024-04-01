@@ -1,8 +1,6 @@
 import { PublicMovieCard } from '@/app/features/public-movie/PublicMovieCard'
-import {
-  PublicMovie,
-  getAllPublicMovies
-} from '@/app/features/public-movie/getAllPublicMovies'
+import { getAllPublicMovies } from '@/app/features/public-movie/getAllPublicMovies'
+import type { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
 
 export default async function PublicMovie() {
   const publicMovies = await getAllPublicMovies()
