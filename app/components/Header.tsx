@@ -26,15 +26,21 @@ const routes = {
   mymovie: '/mymovie',
   mypage: '/mypage',
   publicMovie: '/public-movie'
-} as const
+} as const satisfies { [key in string]: string }
 
 type Route = (typeof routes)[keyof typeof routes]
+
+type Page = { title: string; route: string }
 
 const pages = [
   { title: 'マイページ', route: routes.mypage },
   { title: '見た映画', route: routes.mymovie },
   { title: '映画を探す', route: routes.publicMovie }
-] as const
+] as const satisfies Page[]
+
+const publicPages = [
+  { title: '映画を探す', route: routes.publicMovie }
+] as const satisfies Page[]
 
 type Props = {
   title?: string
@@ -75,6 +81,24 @@ function ResponsiveAppBar(props: Props) {
   const handleClickMenu = (route: Route) => {
     setAnchorElUser(null)
     router.push(route)
+  }
+
+  const HeaderLink = (page: Page) => {
+    return (
+      <Link key={page.title} href={page.route}>
+        <Button
+          onClick={handleCloseNavMenu}
+          sx={{
+            my: 2,
+            color: 'white',
+            display: 'block',
+            '&:hover': { color: '#34D399' }
+          }}
+        >
+          {page.title}
+        </Button>
+      </Link>
+    )
   }
 
   return (
@@ -155,21 +179,11 @@ function ResponsiveAppBar(props: Props) {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page.title} href={page.route}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: 'white',
-                    display: 'block',
-                    '&:hover': { color: '#34D399' }
-                  }}
-                >
-                  {page.title}
-                </Button>
-              </Link>
-            ))}
+            {session
+              ? pages.map((page) => <HeaderLink key={page.title} {...page} />)
+              : publicPages.map((publicPage) => (
+                  <HeaderLink key={publicPage.title} {...publicPage} />
+                ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
