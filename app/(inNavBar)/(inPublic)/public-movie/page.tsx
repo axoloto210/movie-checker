@@ -1,6 +1,7 @@
 import { PublicMovieCard } from '@/app/features/public-movie/PublicMovieCard'
 import { getAllPublicMovies } from '@/app/features/public-movie/getAllPublicMovies'
 import type { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
+import styles from '@/app/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
 
 export default async function PublicMovie() {
   const publicMovies = await getAllPublicMovies()
@@ -9,7 +10,7 @@ export default async function PublicMovie() {
     <>
       <div>
         <div>準備中です。</div>
-        <form className="max-w-md mx-auto">
+        <form className={styles.form}>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
