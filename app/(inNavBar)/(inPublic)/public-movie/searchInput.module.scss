@@ -1,11 +1,58 @@
+//TODO: プロパティの順序規則を導入
 .form {
-  max-width: 28rem;
-  margin: 0 auto 16px;
+    position: relative;
+    max-width: 448px;
+    margin: 16px auto 16px;
+}
+.search-area {
+    inset-inline-start: 0px;
+    padding-inline-start: 12px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
+.search-icon {
+    width: 16px;
+    height: 16px;
+    color: #718096;
 }
 
-.search-label{
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+.input-area {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    padding-left: 40px;
+    background-color: #f7fafc;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d2d6dc;
+    border-radius: 8px;
+    font-size: 14px;
     color: #1a202c;
+  :focus {
+      --tw-ring-color: rgb(59 130 246);
+      border-color: rgb(59 130 246);
+  }
+}
+.search-button {
+    inset-inline-end: 10px;
+    position: absolute;
+    bottom: 10px;
+    padding: 8px 16px;
+    background-color: #2563eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  :hover {
+      background-color: #1d4ed8;
+  }
+  :focus {
+      box-shadow: var(--tw-ring-inset) 0 0 0;
+      outline: none;
+      --tw-ring-color: rgb(147 197 253);
+  }
 }
