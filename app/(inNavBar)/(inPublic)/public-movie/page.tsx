@@ -9,7 +9,6 @@ export default async function PublicMovie() {
   return (
     <>
       <div>
-        <div>準備中です。</div>
         <form className={styles.form}>
           <div className={styles.searchArea}>
             <svg
