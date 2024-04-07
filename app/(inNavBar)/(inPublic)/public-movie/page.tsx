@@ -29,9 +29,8 @@ export default async function PublicMovie() {
           </div>
           <input
             type="search"
-            id="default-search"
             className={styles.inputArea}
-            placeholder="Part of title ..."
+            placeholder="映画タイトルの一部を入力して検索"
             required
           />
           <button type="submit" className={styles.searchButton}>

@@ -33,9 +33,9 @@ type Route = (typeof routes)[keyof typeof routes]
 type Page = { title: string; route: string }
 
 const pages = [
-  { title: 'マイページ', route: routes.mypage },
-  { title: '見た映画', route: routes.mymovie },
-  { title: '映画を探す', route: routes.publicMovie }
+  { title: '映画を探す', route: routes.publicMovie },
+  { title: 'みた映画', route: routes.mymovie },
+  { title: 'マイページ', route: routes.mypage }
 ] as const satisfies Readonly<Page[]>
 
 const publicPages = [
@@ -211,22 +211,22 @@ function ResponsiveAppBar(props: Props) {
               {session
                 ? [
                     <MenuItem
-                      key={'mypage'}
-                      onClick={() => handleClickMenu(routes.mypage)}
+                      key={'public-movie'}
+                      onClick={() => handleClickMenu(routes.publicMovie)}
                     >
-                      <Typography textAlign="center">マイページ</Typography>
+                      <Typography textAlign="center">映画を探す</Typography>
                     </MenuItem>,
                     <MenuItem
                       key={'mymovie'}
                       onClick={() => handleClickMenu(routes.mymovie)}
                     >
-                      <Typography textAlign="center">見た映画</Typography>
+                      <Typography textAlign="center">みた映画</Typography>
                     </MenuItem>,
                     <MenuItem
-                      key={'public-movie'}
-                      onClick={() => handleClickMenu(routes.publicMovie)}
+                      key={'mypage'}
+                      onClick={() => handleClickMenu(routes.mypage)}
                     >
-                      <Typography textAlign="center">映画を探す</Typography>
+                      <Typography textAlign="center">マイページ</Typography>
                     </MenuItem>,
                     <MenuItem key={'logout'} onClick={handleLogOut}>
                       <Typography textAlign="center">ログアウト</Typography>
