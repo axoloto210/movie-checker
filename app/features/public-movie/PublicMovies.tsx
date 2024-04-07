@@ -2,10 +2,7 @@
 import styles from '@/app/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
 import { PublicMovie } from './getAllPublicMovies'
 import { PublicMovieCard } from './PublicMovieCard'
-import { useState } from 'react'
-import searchPublicMovies, {
-  SearchPublicMoviesState
-} from '@/app/features/public-movie/actions'
+import searchPublicMovies from '@/app/features/public-movie/actions'
 import { useFormState, useFormStatus } from 'react-dom'
 
 type Props = {
@@ -23,9 +20,10 @@ const SubmitButton = () => {
 }
 
 export function PublicMovieList(props: Props) {
-  const initialState: SearchPublicMoviesState = {
+  const initialState = {
     titleInput: '',
-    publicMovies: props.publicMovies
+    publicMovies: props.publicMovies,
+    message: undefined
   }
 
   const [state, formAction] = useFormState(searchPublicMovies, initialState)

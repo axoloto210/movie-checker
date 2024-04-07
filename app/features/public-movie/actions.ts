@@ -5,27 +5,43 @@ import {
   PublicMovie,
   makePublicMovieFromRawPublicMovies
 } from './getAllPublicMovies'
+import { z } from 'zod'
 
 export type SearchPublicMoviesState = {
   titleInput: string
   publicMovies: PublicMovie[]
+  message?: string
 }
+
+const inputSchema = z.object({ titleInput: z.string().min(1) })
 
 export default async function searchPublicMovies(
   prevState: SearchPublicMoviesState,
   formData: FormData
 ) {
   'use server'
-  const titleInput = formData.get('titleInput')
 
-  const rawPublicMovies = await prisma.publicMovie.findMany({
-    where: {
-      title: { contains: titleInput as string }
-    }
+  const parse = inputSchema.safeParse({
+    titleInput: formData.get('titleInput')
   })
+  if (!parse.success) {
+    return { ...prevState, message: '入力が不正なため検索できません。' }
+  }
+  const searchInput = parse.data
 
-  return {
-    titleInput: prevState.titleInput,
-    publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies)
+  try {
+    const rawPublicMovies = await prisma.publicMovie.findMany({
+      where: {
+        title: { contains: searchInput.titleInput }
+      }
+    })
+
+    return {
+      titleInput: prevState.titleInput,
+      publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies),
+      message: undefined
+    }
+  } catch (error: unknown) {
+    return { ...prevState, message: '検索に失敗しました。' }
   }
 }
