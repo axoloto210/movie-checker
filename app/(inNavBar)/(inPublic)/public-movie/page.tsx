@@ -1,46 +1,13 @@
-import { PublicMovieCard } from '@/app/features/public-movie/PublicMovieCard'
+import { PublicMovieList } from '@/app/features/public-movie/PublicMovies'
 import { getAllPublicMovies } from '@/app/features/public-movie/getAllPublicMovies'
 import type { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
-import styles from '@/app/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
 
 export default async function PublicMovie() {
   const publicMovies = await getAllPublicMovies()
 
   return (
     <>
-      <div>
-        <form className={styles.form}>
-          <div className={styles.searchArea}>
-            <svg
-              className={styles.searchIcon}
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            className={styles.inputArea}
-            placeholder="映画タイトルの一部を入力して検索"
-            required
-          />
-          <button type="submit" className={styles.searchButton}>
-            Search
-          </button>
-        </form>
-        {publicMovies.map((publicMovie) => {
-          return <PublicMovieCard key={publicMovie.id} {...publicMovie} />
-        })}
-      </div>
+      <PublicMovieList publicMovies={publicMovies} />
     </>
   )
 }
