@@ -10,14 +10,14 @@ export type RegisterMovieResult = {
   status: number
 }
 
-export async function POST(req: NextRequest) {
-  const schema = z.object({
-    title: z.string(),
-    siteURL: z.string(),
-    image: z.string(),
-    userEmail: z.string()
-  })
+const schema = z.object({
+  title: z.string(),
+  siteURL: z.string(),
+  image: z.string(),
+  userEmail: z.string()
+})
 
+export async function POST(req: NextRequest) {
   try {
     const { title, siteURL, image, userEmail } = schema.parse(await req.json())
 
