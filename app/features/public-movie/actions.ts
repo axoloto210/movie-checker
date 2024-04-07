@@ -36,6 +36,14 @@ export default async function searchPublicMovies(
       }
     })
 
+    if (rawPublicMovies.length === 0) {
+      return {
+        titleInput: prevState.titleInput,
+        publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies),
+        message: '映画がみつかりませんでした。'
+      }
+    }
+
     return {
       titleInput: prevState.titleInput,
       publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies),

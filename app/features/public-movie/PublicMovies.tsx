@@ -57,11 +57,6 @@ export function PublicMovieList(props: Props) {
           />
           <SubmitButton />
         </form>
-        {state.publicMovies.length === 0 && (
-          <div style={{ display: 'flex' }}>
-            <div className={styles.notFound}>映画がみつかりませんでした。</div>
-          </div>
-        )}
         {state?.message && (
           <div style={{ display: 'flex' }}>
             <div className={styles.notFound}>{state.message}</div>
