@@ -13,7 +13,7 @@ export type SearchPublicMoviesState = {
   message?: string
 }
 
-const inputSchema = z.object({ titleInput: z.string().min(1) })
+const inputSchema = z.object({ titleInput: z.string() })
 
 export default async function searchPublicMovies(
   prevState: SearchPublicMoviesState,

@@ -54,10 +54,19 @@ export function PublicMovieList(props: Props) {
             className={styles.inputArea}
             name="titleInput"
             placeholder="映画タイトルの一部を入力して検索"
-            required
           />
           <SubmitButton />
         </form>
+        {state.publicMovies.length === 0 && (
+          <div style={{ display: 'flex' }}>
+            <div className={styles.notFound}>映画がみつかりませんでした。</div>
+          </div>
+        )}
+        {state?.message && (
+          <div style={{ display: 'flex' }}>
+            <div className={styles.notFound}>{state.message}</div>
+          </div>
+        )}
         {state.publicMovies.map((publicMovie) => {
           return <PublicMovieCard key={publicMovie.id} {...publicMovie} />
         })}
