@@ -1,10 +1,21 @@
 import styles from '@/app/features/public-movie/publicMovieCard.module.scss'
 import { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
+import { RegisterMovieButton } from './RegisterMovieButton'
+import { registerMovieAction } from './actions'
 
-export function PublicMovieCard(publicMovie: PublicMovie) {
+type Props = {
+  isLogin: boolean
+} & PublicMovie
+
+export function PublicMovieCard(props: Props) {
   return (
     <div className={styles.card}>
-      {publicMovie.title} 公開日: {publicMovie.publicationDate}
+      {props.title} 公開日: {props.publicationDate}
+      {props.isLogin && (
+        <form action={registerMovieAction}>
+          <RegisterMovieButton movieId={props.id} />
+        </form>
+      )}
     </div>
   )
 }

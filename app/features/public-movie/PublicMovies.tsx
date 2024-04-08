@@ -4,6 +4,8 @@ import { PublicMovie } from './getAllPublicMovies'
 import { PublicMovieCard } from './PublicMovieCard'
 import searchPublicMovies from '@/app/features/public-movie/actions'
 import { useFormState, useFormStatus } from 'react-dom'
+import { useSession } from 'next-auth/react'
+import { authOptions } from '@/app/api/auth/authOptions'
 
 type Props = {
   publicMovies: PublicMovie[]
@@ -25,6 +27,8 @@ export function PublicMovieList(props: Props) {
     publicMovies: props.publicMovies,
     message: undefined
   }
+
+  const { status } = useSession()
 
   const [state, formAction] = useFormState(searchPublicMovies, initialState)
 
@@ -63,7 +67,13 @@ export function PublicMovieList(props: Props) {
           </div>
         )}
         {state.publicMovies.map((publicMovie) => {
-          return <PublicMovieCard key={publicMovie.id} {...publicMovie} />
+          return (
+            <PublicMovieCard
+              key={publicMovie.id}
+              isLogin={status === 'authenticated'}
+              {...publicMovie}
+            />
+          )
         })}
       </div>
     </>

@@ -6,6 +6,8 @@ import {
   makePublicMovieFromRawPublicMovies
 } from './getAllPublicMovies'
 import { z } from 'zod'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/authOptions'
 
 export type SearchPublicMoviesState = {
   titleInput: string
@@ -19,8 +21,6 @@ export default async function searchPublicMovies(
   prevState: SearchPublicMoviesState,
   formData: FormData
 ) {
-  'use server'
-
   const parse = inputSchema.safeParse({
     titleInput: formData.get('titleInput')
   })
@@ -52,4 +52,8 @@ export default async function searchPublicMovies(
   } catch (error: unknown) {
     return { ...prevState, message: '検索に失敗しました。' }
   }
+}
+
+export async function registerMovieAction() {
+  const session = await getServerSession(authOptions)
 }
