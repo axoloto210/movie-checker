@@ -8,11 +8,12 @@ type Props = {
 } & PublicMovie
 
 export function PublicMovieCard(props: Props) {
+  const fromAction = registerMovieAction.bind(null, props.id)
   return (
     <div className={styles.card}>
       {props.title} 公開日: {props.publicationDate}
       {props.isLogin && (
-        <form action={() => registerMovieAction(props.id)}>
+        <form action={fromAction}>
           <RegisterMovieButton />
         </form>
       )}
