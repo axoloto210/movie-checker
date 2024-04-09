@@ -1,11 +1,10 @@
 'use client'
 import styles from '@/app/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
-import { PublicMovie } from './getAllPublicMovies'
-import { PublicMovieCard } from './PublicMovieCard'
 import searchPublicMovies from '@/app/features/public-movie/actions'
-import { useFormState, useFormStatus } from 'react-dom'
 import { useSession } from 'next-auth/react'
-import { authOptions } from '@/app/api/auth/authOptions'
+import { useFormState, useFormStatus } from 'react-dom'
+import { PublicMovieCard } from './PublicMovieCard'
+import { PublicMovie } from './getAllPublicMovies'
 
 type Props = {
   publicMovies: PublicMovie[]

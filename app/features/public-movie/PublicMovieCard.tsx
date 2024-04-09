@@ -12,7 +12,7 @@ export function PublicMovieCard(props: Props) {
     <div className={styles.card}>
       {props.title} 公開日: {props.publicationDate}
       {props.isLogin && (
-        <form action={registerMovieAction}>
+        <form action={() => registerMovieAction(props.id)}>
           <RegisterMovieButton movieId={props.id} />
         </form>
       )}

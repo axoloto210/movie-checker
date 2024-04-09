@@ -8,6 +8,8 @@ import {
 import { z } from 'zod'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/authOptions'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export type SearchPublicMoviesState = {
   titleInput: string
@@ -54,6 +56,57 @@ export default async function searchPublicMovies(
   }
 }
 
-export async function registerMovieAction() {
+/**
+ * publicMovieの映画情報をMovieへ登録します。
+ * @param movieId
+ * @returns
+ */
+export async function registerMovieAction(movieId: number) {
   const session = await getServerSession(authOptions)
+
+  if (session?.user?.email == null) {
+    return
+  }
+  const authorId = await getUserId(session.user.email)
+  if (authorId == null) {
+    return
+  }
+
+  const publicMovieData = await getPublicMovieByMovieId(movieId)
+  if (publicMovieData === null) {
+    return
+  }
+
+  console.log(publicMovieData)
+
+  await prisma.movie.create({
+    data: {
+      ...publicMovieData,
+      authorId
+    }
+  })
+}
+
+async function getUserId(userEmail: string) {
+  const userId = await prisma.user.findUnique({
+    where: {
+      email: userEmail
+    },
+    select: {
+      id: true
+    }
+  })
+  return userId?.id
+}
+
+async function getPublicMovieByMovieId(movieId: number) {
+  const publicMovie = await prisma.publicMovie.findUnique({
+    where: { id: movieId },
+    select: {
+      title: true,
+      siteURL: true,
+      image: true
+    }
+  })
+  return publicMovie
 }
