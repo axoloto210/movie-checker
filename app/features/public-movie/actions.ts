@@ -77,14 +77,15 @@ export async function registerMovieAction(movieId: number) {
     return
   }
 
-  console.log(publicMovieData)
-
   await prisma.movie.create({
     data: {
       ...publicMovieData,
       authorId
     }
   })
+
+  revalidatePath('/mymovie') //みた映画情報を読み込み直す。
+  redirect('/mymovie')
 }
 
 async function getUserId(userEmail: string) {
