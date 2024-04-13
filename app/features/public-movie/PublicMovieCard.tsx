@@ -1,6 +1,6 @@
 import styles from '@/app/features/public-movie/publicMovieCard.module.scss'
 import { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
-import { registerMovieAction } from './actions'
+import { registerMovieAction } from '@/app/features/public-movie/actions'
 
 type Props = {
   isLogin: boolean
