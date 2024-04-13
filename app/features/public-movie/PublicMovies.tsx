@@ -56,6 +56,7 @@ export function PublicMovieList(props: Props) {
             type="search"
             className={styles.inputArea}
             name="titleInput"
+            autoComplete="off"
             placeholder="映画タイトルの一部を入力して検索"
           />
           <SubmitButton />
