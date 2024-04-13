@@ -35,7 +35,12 @@ export default async function searchPublicMovies(
     const rawPublicMovies = await prisma.publicMovie.findMany({
       where: {
         title: { contains: searchInput.titleInput }
-      }
+      },
+      orderBy: [
+        {
+          publicationDate: { sort: 'desc', nulls: 'last' }
+        }
+      ]
     })
 
     if (rawPublicMovies.length === 0) {
