@@ -1,10 +1,33 @@
 import styles from '@/app/features/public-movie/publicMovieCard.module.scss'
 import { PublicMovie } from '@/app/features/public-movie/getAllPublicMovies'
+import { registerMovieAction } from '@/app/features/public-movie/actions'
 
-export function PublicMovieCard(publicMovie: PublicMovie) {
+type Props = {
+  isLogin: boolean
+} & PublicMovie
+
+export function PublicMovieCard(props: Props) {
+  const fromAction = registerMovieAction.bind(null, props.id)
   return (
-    <div className={styles.card}>
-      {publicMovie.title} 公開日: {publicMovie.publicationDate}
+    <div className={styles.parentCard}>
+      <div className={styles.card}>
+        <div className={styles.title}>{props.title}</div>
+        <div className={styles.publicationDate}>
+          公開日: {props.publicationDate}
+        </div>
+        <div>
+          <a className={styles.link} href={props.siteURL}>
+            公式サイトへ
+          </a>
+        </div>
+        {props.isLogin && (
+          <form className={styles.form} action={fromAction}>
+            <button className={styles.watchedButton} type="submit">
+              みた！
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   )
 }
