@@ -94,6 +94,7 @@ export default function MovieCard(props: Props) {
                   component="a"
                   href={props.siteURL}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white md:mt-12 mt-4 hover:text-green-500 text-xxs md:text-xs"
                 >
                   公式サイトへ
