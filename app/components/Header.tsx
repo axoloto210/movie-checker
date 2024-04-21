@@ -105,7 +105,7 @@ function ResponsiveAppBar(props: Props) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href="/" passHref legacyBehavior>
+          <Link href="/mypage" passHref legacyBehavior>
             <Typography
               variant="h6"
               noWrap
@@ -159,7 +159,7 @@ function ResponsiveAppBar(props: Props) {
             </Menu>
           </Box>
 
-          <Link href="/" passHref legacyBehavior>
+          <Link href="/mypage" passHref legacyBehavior>
             <Typography
               variant="h5"
               noWrap
