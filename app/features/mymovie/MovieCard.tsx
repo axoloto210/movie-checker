@@ -9,8 +9,6 @@ import Color from 'color'
 import React from 'react'
 
 const defaultColor = '#1976D2'
-const cardWidth = 200
-const cardHeight = 200
 
 const StyledRoot = styled('div')<{ color?: string }>(
   ({ color = defaultColor }) => ({
@@ -35,13 +33,6 @@ const StyledRoot = styled('div')<{ color?: string }>(
   })
 )
 
-const StyledH2 = styled('h2')(() => ({
-  fontFamily: 'Fjalla One',
-  fontSize: '14px',
-  color: '#fff',
-  margin: 0
-}))
-
 const StyledContent = styled('div')<{ color?: string }>(
   ({ color = defaultColor }) => ({
     position: 'relative',
@@ -63,7 +54,8 @@ const AvatarLogo = styled(Avatar)(() => ({
   width: 100,
   height: 100,
   boxShadow: '0 4px 12px 0 rgba(0,0,0,0.24)',
-  borderRadius: '1rem'
+  borderRadius: '1rem',
+  '@media (max-width: 767px)': { width: '50px', height: '50px' } //閾値の直書きは避けるべき。
 }))
 
 const clickDeleteHandler = async (movieId: number, title: string) => {
@@ -86,35 +78,30 @@ export default function MovieCard(props: Props) {
       <Grid item>
         <StyledRoot>
           <StyledContent>
-            <Box position={'relative'} width={cardWidth} height={cardHeight}>
-              <Box display="flex" p={0} gap={2} sx={{ flexWrap: 'nowrap' }}>
+            <Box position={'relative'} className="w-25 h-25 md:w-50 md:h-50">
+              <Box className="flex p-0 gap-2 flex-nowrap">
                 <Box>
                   <AvatarLogo src={props.image ?? '/favicon.ico'} />
                 </Box>
-                <Box alignSelf="flex-end">
-                  <StyledH2>{<>{props.title}</>}</StyledH2>
+                <Box className="self-end">
+                  <h2 className="font-fjalla md:font-sans md:text-sm text-xxs m-0 text-white">
+                    {<>{props.title}</>}
+                  </h2>
                 </Box>
               </Box>
-              <Box
-                display="flex"
-                mt={4}
-                alignItems={'center'}
-                justifyContent={'space-between'}
-              >
+              <Box className="flex md:mt-8 mt-4 justify-between items-center">
                 <Box
                   component="a"
                   href={props.siteURL}
                   target="_blank"
-                  marginTop={6}
-                  className="text-white hover:text-green-500 text-xs"
+                  className="text-white md:mt-12 mt-4 hover:text-green-500 text-xxs md:text-xs"
                 >
                   公式サイトへ
                 </Box>
                 <Box
-                  component="button"
+                  component="div"
                   onClick={() => clickDeleteHandler(props.movieId, props.title)}
-                  marginTop={6}
-                  className="text-white hover:text-red-500 text-xs"
+                  className="text-white md:mt-12 mt-4 hover:text-red-500 text-xxs md:text-xs"
                 >
                   削除
                 </Box>

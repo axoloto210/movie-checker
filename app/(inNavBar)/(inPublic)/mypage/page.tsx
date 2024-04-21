@@ -10,26 +10,17 @@ export default function Mypage() {
   const user = session?.user
 
   return (
-    <>
+    <div className="mt-8">
       {status === 'loading' ? (
         <LoginLoading />
       ) : status === 'authenticated' ? (
-        <>
-          <h2>Welcome {user?.name}</h2>
-          <Image
-            src={user?.image ?? ''}
-            alt={user?.name ?? 'user img'}
-            width={90}
-            height={90}
-          />
-          {user?.email && <MovieRegistrationForm userEmail={user?.email} />}
-        </>
+        <>{user?.email && <MovieRegistrationForm userEmail={user?.email} />}</>
       ) : (
-        <>
-          <div>{`映画情報の管理にはログインが必要です。`}</div>
+        <div className="text-center">
+          <h2 className="mb-4 text-lg text-red-500">{`映画情報の管理にはGitHubアカウントによるログインが必要です。`}</h2>
           <LoginButton />
-        </>
+        </div>
       )}
-    </>
+    </div>
   )
 }

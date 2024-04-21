@@ -3,6 +3,7 @@ import {
   DndContext,
   DragEndEvent,
   MouseSensor,
+  TouchSensor,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
@@ -26,7 +27,15 @@ export function MovieDnDList(props: Props) {
       distance: 5 //カード内でボタンクリックを有効化。5px ドラッグした時にソート機能を有効にする
     }
   })
-  const sensors = useSensors(mouseSensor)
+
+  const touchSensor = useSensor(TouchSensor, {
+    // <delay>ms <tolerance>pxの範囲内でタッチし続けるとドラッグ可能に。
+    activationConstraint: {
+      delay: 200,
+      tolerance: 5
+    }
+  })
+  const sensors = useSensors(mouseSensor, touchSensor)
 
   const dndContextId = useId()
   const [movies, setMovies] = useState(props.movies)

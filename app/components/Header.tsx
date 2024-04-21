@@ -33,12 +33,13 @@ type Route = (typeof routes)[keyof typeof routes]
 type Page = { title: string; route: string }
 
 const pages = [
+  { title: 'マイページ', route: routes.mypage },
   { title: '映画を探す', route: routes.publicMovie },
-  { title: 'みた映画', route: routes.mymovie },
-  { title: 'マイページ', route: routes.mypage }
+  { title: 'みた映画', route: routes.mymovie }
 ] as const satisfies Readonly<Page[]>
 
 const publicPages = [
+  { title: 'マイページ', route: routes.mypage },
   { title: '映画を探す', route: routes.publicMovie }
 ] as const satisfies Readonly<Page[]>
 
@@ -105,7 +106,7 @@ function ResponsiveAppBar(props: Props) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href="/" passHref legacyBehavior>
+          <Link href="/mypage" passHref legacyBehavior>
             <Typography
               variant="h6"
               noWrap
@@ -159,7 +160,7 @@ function ResponsiveAppBar(props: Props) {
             </Menu>
           </Box>
 
-          <Link href="/" passHref legacyBehavior>
+          <Link href="/mypage" passHref legacyBehavior>
             <Typography
               variant="h5"
               noWrap
@@ -211,6 +212,12 @@ function ResponsiveAppBar(props: Props) {
               {session
                 ? [
                     <MenuItem
+                      key={'mypage'}
+                      onClick={() => handleClickMenu(routes.mypage)}
+                    >
+                      <Typography textAlign="center">マイページ</Typography>
+                    </MenuItem>,
+                    <MenuItem
                       key={'public-movie'}
                       onClick={() => handleClickMenu(routes.publicMovie)}
                     >
@@ -222,17 +229,17 @@ function ResponsiveAppBar(props: Props) {
                     >
                       <Typography textAlign="center">みた映画</Typography>
                     </MenuItem>,
+                    <MenuItem key={'logout'} onClick={handleLogOut}>
+                      <Typography textAlign="center">ログアウト</Typography>
+                    </MenuItem>
+                  ]
+                : [
                     <MenuItem
                       key={'mypage'}
                       onClick={() => handleClickMenu(routes.mypage)}
                     >
                       <Typography textAlign="center">マイページ</Typography>
                     </MenuItem>,
-                    <MenuItem key={'logout'} onClick={handleLogOut}>
-                      <Typography textAlign="center">ログアウト</Typography>
-                    </MenuItem>
-                  ]
-                : [
                     <MenuItem
                       key={'public-movie'}
                       onClick={() => handleClickMenu(routes.publicMovie)}

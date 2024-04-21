@@ -15,6 +15,16 @@ const config: Config = {
       },
       colors: {
         mainblue: '#1976D2'
+      },
+      fontFamily: {
+        fjalla: ['Fjalla One']
+      },
+      fontSize: {
+        xxs: '8px'
+      },
+      width: {
+        '25': '100px',
+        '50': '200px'
       }
     }
   },
