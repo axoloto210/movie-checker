@@ -16,7 +16,7 @@ export function PublicMovieCard(props: Props) {
           公開日: {props.publicationDate}
         </div>
         <div>
-          <a className={styles.link} href={props.siteURL}>
+          <a className={styles.link} href={props.siteURL} target="_blank">
             公式サイトへ
           </a>
         </div>
