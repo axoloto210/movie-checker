@@ -24,6 +24,7 @@ const StyledRoot = styled('div')<{ color?: string }>(
     bottom: 0,
     backgroundColor: Color(color).darken(0.3).desaturate(0.2).string(),
     '&:hover': {
+      zIndex: 3000,
       '&:before': {
         bottom: -6
       },
@@ -111,7 +112,7 @@ export default function MovieCard(props: Props) {
                   公式サイトへ
                 </Box>
                 <Box
-                  component="button"
+                  component="div"
                   onClick={() => clickDeleteHandler(props.movieId, props.title)}
                   marginTop={6}
                   className="text-white hover:text-red-500 text-xs"
