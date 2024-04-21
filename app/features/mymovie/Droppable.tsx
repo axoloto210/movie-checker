@@ -1,5 +1,4 @@
 import { useDroppable } from '@dnd-kit/core'
-import React from 'react'
 
 export function Droppable(props: any) {
   const { setNodeRef, isOver } = useDroppable({
@@ -7,6 +6,8 @@ export function Droppable(props: any) {
   })
 
   const style = {
+    display: 'flex',
+    justifyContent: 'center',
     opacity: isOver ? 0.8 : 1,
     zIndex: isOver ? 0 : 1
   }

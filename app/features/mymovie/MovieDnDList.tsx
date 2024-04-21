@@ -29,7 +29,7 @@ export function MovieDnDList(props: Props) {
   })
 
   const touchSensor = useSensor(TouchSensor, {
-    // Press delay of 250ms, with tolerance of 5px of movement
+    // <delay>ms <tolerance>pxの範囲内でタッチし続けるとドラッグ可能に。
     activationConstraint: {
       delay: 200,
       tolerance: 5
