@@ -43,8 +43,8 @@ export function MovieDnDList(props: Props) {
     <div className="flex flex-wrap">
       <DndContext id={dndContextId} sensors={sensors} onDragEnd={handleDragEnd}>
         {movies.map((movie, index) => (
-          <Fragment key={movie.title}>
-            <Droppable key={movie.title} id={String(index)}>
+          <Fragment key={movie.id}>
+            <Droppable key={movie.id} id={String(index)}>
               <Draggable id={String(index)}>
                 <MovieCard
                   movieId={movie.id}
