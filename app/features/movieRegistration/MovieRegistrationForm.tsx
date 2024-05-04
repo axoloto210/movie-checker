@@ -1,6 +1,5 @@
 import { RegisterMovieResult } from '@/app/api/(MyMovie)/registerMovie/route'
 import { postFetch } from '@/app/lib/fetch'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 export type RegisteredMovie = {
@@ -14,8 +13,6 @@ type Props = {
 }
 
 const MovieRegistrationForm = (props: Props) => {
-  const router = useRouter()
-
   const placeholders = {
     title: 'タイトル',
     siteURL: 'サイトURL',
@@ -59,7 +56,7 @@ const MovieRegistrationForm = (props: Props) => {
 
   return (
     <>
-      <div className="flex center-text justify-center text-2xl font-semibold text-gray-900 dark:text-white">
+      <div className="flex center-text justify-center mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
         みた映画を登録
       </div>
       <form
@@ -100,8 +97,8 @@ const MovieRegistrationForm = (props: Props) => {
           className={'form-text-area'}
           {...register('image')}
         ></textarea>
-        <div>
-          <button type="submit" className="blue-button mt-4">
+        <div className="flex justify-center">
+          <button type="submit" className="blue-button mt-6">
             登録
           </button>
         </div>

@@ -5,7 +5,7 @@ import { MovieRegistrationForm } from '@/app/features/movieRegistration/MovieReg
 import { useSession } from 'next-auth/react'
 
 export default function RegisterMovieModal() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const user = session?.user
   return (
     <Modal>
