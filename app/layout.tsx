@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
+        <NextTopLoader color="#99d9ea" />
         {children}
         <Analytics />
       </body>
