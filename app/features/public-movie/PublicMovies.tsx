@@ -33,7 +33,7 @@ export function PublicMovieList(props: Props) {
 
   return (
     <>
-      <div>
+      <div className="mt-12">
         <form className={styles.form} action={formAction}>
           <div className={styles.searchArea}>
             <svg
