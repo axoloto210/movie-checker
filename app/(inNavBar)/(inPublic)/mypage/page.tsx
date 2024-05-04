@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import LoginButton from 'app/components/LoginButton'
 import { LoginLoading } from 'app/components/LoginLoading'
 import Link from 'next/link'
+import { LoginCaveat } from '@/app/components/LoginCaveat'
 
 export default function Mypage() {
   const { data: session, status } = useSession()
@@ -26,10 +27,7 @@ export default function Mypage() {
           )}
         </>
       ) : (
-        <div className="text-center">
-          <h2 className="mb-4 text-lg text-red-500">{`映画情報の管理にはGitHubアカウントによるログインが必要です。`}</h2>
-          <LoginButton />
-        </div>
+        <LoginCaveat />
       )}
     </div>
   )
