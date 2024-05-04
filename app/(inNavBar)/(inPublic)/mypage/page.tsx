@@ -1,6 +1,5 @@
 'use client'
 import { useSession } from 'next-auth/react'
-import LoginButton from 'app/components/LoginButton'
 import { LoginLoading } from 'app/components/LoginLoading'
 import Link from 'next/link'
 import { LoginCaveat } from '@/app/components/LoginCaveat'
