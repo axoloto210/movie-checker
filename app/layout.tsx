@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <NextTopLoader color="#99d9ea" />
+        <NextTopLoader color="#99d9ea" showSpinner={false} />
         {children}
         <Analytics />
       </body>
