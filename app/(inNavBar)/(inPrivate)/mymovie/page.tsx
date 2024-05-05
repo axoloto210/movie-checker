@@ -25,7 +25,11 @@ export default async function MyMovie() {
       id: true,
       title: true,
       siteURL: true,
-      image: true
+      image: true,
+      order: true
+    },
+    orderBy: {
+      order: 'asc'
     }
   })
 
