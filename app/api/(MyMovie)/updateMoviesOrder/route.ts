@@ -1,6 +1,7 @@
 import { authOptions } from '@/app/api/auth/authOptions'
 import prisma from '@/app/lib/prisma'
 import { getServerSession } from 'next-auth'
+import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
@@ -42,6 +43,7 @@ export async function PUT(req: NextRequest) {
     const { moviesOrder } = schema.parse(await req.json())
 
     await updateMoviesOrder(moviesOrder, userId)
+    revalidatePath('/mymovie') //みた映画情報を読み込み直す。
     return Response.json({ status: 200 })
   } catch (error) {
     console.log(error)
