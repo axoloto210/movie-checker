@@ -64,6 +64,7 @@ model Movie {
   image     String?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+  order     Int      @default(autoincrement())
 }
 
 model PublicMovie {

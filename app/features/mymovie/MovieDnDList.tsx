@@ -11,6 +11,7 @@ import { Fragment, useId, useState } from 'react'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 import MovieCard from './MovieCard'
+import { putFetch } from '@/app/lib/fetch'
 
 type Props = {
   movies: {
@@ -18,6 +19,7 @@ type Props = {
     title: string
     siteURL: string | null
     image: string | null
+    order: number
   }[]
 }
 
@@ -39,25 +41,58 @@ export function MovieDnDList(props: Props) {
 
   const dndContextId = useId()
   const [movies, setMovies] = useState(props.movies)
+
+  const clickHandlerUpdateOrder = async () => {
+    const moviesOrder = movies.map((movie, index) => {
+      return {
+        id: movie.id,
+        order: index + 1
+      }
+    })
+    const body = {
+      moviesOrder
+    }
+
+    await putFetch<object, {}>('/updateMoviesOrder', body)
+      .then(() => {
+        alert('ランキングの順番を保存しました。')
+      })
+      .catch(() =>
+        alert('エラーが発生しました。時間をあけて再度お試しください。')
+      )
+  }
+
   return (
-    <div className="flex flex-wrap">
-      <DndContext id={dndContextId} sensors={sensors} onDragEnd={handleDragEnd}>
-        {movies.map((movie, index) => (
-          <Fragment key={movie.id}>
-            <Droppable key={movie.id} id={String(index)}>
-              <Draggable id={String(index)}>
-                <MovieCard
-                  movieId={movie.id}
-                  title={movie.title}
-                  siteURL={movie.siteURL ?? '/'}
-                  image={movie.image}
-                />
-              </Draggable>
-            </Droppable>
-          </Fragment>
-        ))}
-      </DndContext>
-    </div>
+    <>
+      <button
+        className="blue-button mt-4 ml-4"
+        onClick={clickHandlerUpdateOrder}
+      >
+        ランキングを保存
+      </button>
+      <div className="flex flex-wrap">
+        <DndContext
+          id={dndContextId}
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+        >
+          {movies.map((movie, index) => (
+            <Fragment key={movie.id}>
+              <Droppable key={movie.id} id={String(index)}>
+                <Draggable id={String(index)}>
+                  <MovieCard
+                    movieId={movie.id}
+                    title={movie.title}
+                    siteURL={movie.siteURL ?? '/'}
+                    image={movie.image}
+                  />
+                </Draggable>
+              </Droppable>
+            </Fragment>
+          ))}
+        </DndContext>
+      </div>
+    </>
   )
 
   function handleDragEnd(event: DragEndEvent) {
