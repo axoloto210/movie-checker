@@ -19,12 +19,16 @@
     border: none;
     border-radius: 12px;
     background-color: white;
-    padding: 20px;
     position: relative;
     justify-content: center;
     align-items: center;
     font-size: 14px;
     font-weight: 500;
+  }
+  .modal-content{
+    height: 100%;
+    padding: 20px;
+    width: 100%;
   }
   .close-button {
     position: absolute;

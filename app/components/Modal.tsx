@@ -18,11 +18,21 @@ export function Modal({ children }: { children: React.ReactNode }) {
     router.back()
   }
 
+  function onBackdropClick(
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) {
+    if (dialogRef.current === event.target) {
+      onDismiss()
+    }
+  }
+
   return createPortal(
-    <div className="modal-backdrop">
+    <div className="modal-backdrop" onClick={onBackdropClick}>
       <dialog ref={dialogRef} className="modal" onClose={onDismiss}>
-        {children}
-        <button onClick={onDismiss} className="close-button" />
+        <div className="modal-content">
+          {children}
+          <button onClick={onDismiss} className="close-button" />
+        </div>
       </dialog>
     </div>,
     document.getElementById('modal-root')!
