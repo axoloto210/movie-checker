@@ -44,6 +44,7 @@ export async function PUT(req: NextRequest) {
 
     await updateMoviesOrder(moviesOrder, userId)
     revalidatePath('/mymovie') //みた映画情報を読み込み直す。
+    revalidatePath('/mypage') //マイページのみた映画情報を読み込み直す。
     return Response.json({ status: 200 })
   } catch (error) {
     console.log(error)
