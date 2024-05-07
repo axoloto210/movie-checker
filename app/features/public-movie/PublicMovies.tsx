@@ -1,6 +1,6 @@
 'use client'
-import styles from '@/app/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
-import searchPublicMovies from '@/app/features/public-movie/actions'
+import styles from '@/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
+import searchPublicMovies from '@/features/public-movie/actions'
 import { useSession } from 'next-auth/react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { PublicMovieCard } from './PublicMovieCard'

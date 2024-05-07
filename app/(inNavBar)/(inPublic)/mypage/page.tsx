@@ -1,6 +1,6 @@
-import { authOptions } from '@/app/api/auth/authOptions'
-import { LoginCaveat } from '@/app/components/LoginCaveat'
-import { WatchedMovieRanking } from '@/app/features/mypage/WatchedMovieRanking'
+import { authOptions } from '@/api/auth/authOptions'
+import { LoginCaveat } from '@/components/LoginCaveat'
+import { WatchedMovieRanking } from '@/features/mypage/WatchedMovieRanking'
 import { getServerSession } from 'next-auth'
 
 import Link from 'next/link'

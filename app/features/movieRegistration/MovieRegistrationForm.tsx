@@ -1,5 +1,5 @@
-import { RegisterMovieResult } from '@/app/api/(MyMovie)/registerMovie/route'
-import { postFetch } from '@/app/lib/fetch'
+import { RegisterMovieResult } from '@/api/(MyMovie)/registerMovie/route'
+import { postFetch } from '@/lib/fetch'
 import { useForm } from 'react-hook-form'
 
 export type RegisteredMovie = {
