@@ -1,29 +1,26 @@
-'use client'
-import { useSession } from 'next-auth/react'
-import { LoginLoading } from 'app/components/LoginLoading'
-import Link from 'next/link'
+import { authOptions } from '@/app/api/auth/authOptions'
 import { LoginCaveat } from '@/app/components/LoginCaveat'
+import { WatchedMovieRanking } from '@/app/features/mypage/WatchedMovieRanking'
+import { getServerSession } from 'next-auth'
 
-export default function Mypage() {
-  const { data: session, status } = useSession()
-  const user = session?.user
+import Link from 'next/link'
+
+export default async function Mypage() {
+  const session = await getServerSession(authOptions)
 
   return (
     <div className="mt-4">
-      {status === 'loading' ? (
-        <LoginLoading />
-      ) : status === 'authenticated' ? (
+      {session ? (
         <>
-          {user?.email && (
-            <div className="flex justify-between">
-              <Link href="/mypage/register-movie">
-                <button className="blue-button ml-4">みた映画を登録</button>
-              </Link>
-              <Link href="/public-movie">
-                <button className="blue-button mr-4">みた映画を探す</button>
-              </Link>
-            </div>
-          )}
+          <div className="flex justify-between">
+            <Link href="/mypage/register-movie">
+              <button className="blue-button ml-4">みた映画を登録</button>
+            </Link>
+            <Link href="/public-movie">
+              <button className="blue-button mr-4">みた映画を探す</button>
+            </Link>
+          </div>
+          <WatchedMovieRanking />
         </>
       ) : (
         <LoginCaveat />
