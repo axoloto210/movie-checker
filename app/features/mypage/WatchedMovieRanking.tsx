@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 import '../mypage/watchedMovieRanking.css'
+import Image from 'next/image'
 
 export async function WatchedMovieRanking() {
   const session = await getServerSession(authOptions)
@@ -67,12 +68,13 @@ const MovieRankingCard = (
         <span>{index + 1}</span>
       </p>
       <div>
-        <img
+        <Image
           className="img_container"
           src={movie.image ?? '/favicon.ico'}
           alt="movie image"
           width="100"
           height="100"
+          unoptimized
         />
       </div>
       <div className="">
