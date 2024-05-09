@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
+import '../mypage/watchedMovieRanking.css'
 
 export async function WatchedMovieRanking() {
   const session = await getServerSession(authOptions)
@@ -35,13 +36,48 @@ export async function WatchedMovieRanking() {
   })
   return (
     <>
-      {movies.map((movie) => {
-        return (
-          <Fragment key={movie.id}>
-            <div>{movie.title}</div>
-          </Fragment>
-        )
-      })}
+      <section>
+        <div className="container">
+          {movies.map((movie, index) => {
+            return (
+              <Fragment key={movie.id}>
+                {MovieRankingCard(movie, index)}
+              </Fragment>
+            )
+          })}
+        </div>
+      </section>
     </>
+  )
+}
+
+const MovieRankingCard = (
+  movie: {
+    id: number
+    image: string | null
+    title: string
+    siteURL: string | null
+    order: number
+  },
+  index: number
+) => {
+  return (
+    <div>
+      <p>
+        <span>{index + 1}</span>
+      </p>
+      <div>
+        <img
+          className="img_container"
+          src={movie.image ?? '/favicon.ico'}
+          alt="movie image"
+          width="100"
+          height="100"
+        />
+      </div>
+      <div className="">
+        <p className="">{movie.title}</p>
+      </div>
+    </div>
   )
 }
