@@ -11,7 +11,7 @@ import { Fragment, useId, useState } from 'react'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 import MovieCard from './MovieCard'
-import { putFetch } from '@/app/lib/fetch'
+import { putFetch } from '@/lib/fetch'
 
 type Props = {
   movies: {

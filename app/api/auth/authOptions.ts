@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
 // import GoogleProvider from 'next-auth/providers/google'
-import prisma from '@/app/lib/prisma'
+import prisma from '@/lib/prisma'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GithubProvider from 'next-auth/providers/github'
 

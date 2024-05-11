@@ -1,5 +1,5 @@
-import { RegisteredMovie } from '@/app/features/movieRegistration/MovieRegistrationForm'
-import prisma from '@/app/lib/prisma'
+import { RegisteredMovie } from '@/features/movieRegistration/MovieRegistrationForm'
+import prisma from '@/lib/prisma'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 

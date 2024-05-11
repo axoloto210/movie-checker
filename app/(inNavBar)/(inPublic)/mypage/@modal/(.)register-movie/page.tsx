@@ -1,7 +1,7 @@
 'use client'
 
-import { Modal } from '@/app/components/Modal'
-import { MovieRegistrationForm } from '@/app/features/movieRegistration/MovieRegistrationForm'
+import { Modal } from '@/components/Modal'
+import { MovieRegistrationForm } from '@/features/movieRegistration/MovieRegistrationForm'
 import { useSession } from 'next-auth/react'
 
 export default function RegisterMovieModal() {

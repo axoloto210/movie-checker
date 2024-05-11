@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteFetch } from '@/app/lib/fetch'
+import { deleteFetch } from '@/lib/fetch'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
