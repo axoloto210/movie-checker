@@ -18,8 +18,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-//TODO: インラインスタイルが見づらいので、別の書き方に変えたい。
-
 const menuTitle = 'メニューを開く'
 
 const routes = {
@@ -115,6 +113,7 @@ function ResponsiveAppBar(props: Props) {
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
+                fontSize: '24px',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
@@ -173,7 +172,8 @@ function ResponsiveAppBar(props: Props) {
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none'
+                textDecoration: 'none',
+                paddingLeft: '40px'
               }}
             >
               MovieChecker
