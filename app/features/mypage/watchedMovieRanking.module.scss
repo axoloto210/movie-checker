@@ -19,11 +19,11 @@
   height: 200px;
   object-fit: cover;
   width: 200px;
-  @media screen and (max-width: var.$width_large) and (min-width: 425px) {
+  @include var.mq(md){
     height: 120px;
     width: 120px;
   }
-  @media screen and (max-width: var.$width_medium) {
+  @include var.mq(sm) {
     height: 80px;
     width: 80px;
   }
@@ -39,7 +39,7 @@
 
 .movie_title{
     margin-top: 4px;
-    @media screen and (max-width: var.$width_medium) {
+    @include var.mq(sm) {
         font-size: 12px;
       }
 }
@@ -54,7 +54,7 @@
   font-size: 24px;
   font-weight: 700;
   padding-left: 4px;
-  @media screen and (max-width: var.$width_medium) {
+  @include var.mq(sm) {
     font-size: 16px;
   }
 }
