@@ -63,7 +63,7 @@ const MovieRankingCard = (
 ) => {
   return (
     <div>
-      <p>
+      <p className={styles.rank}>
         <span>{index + 1}</span>
       </p>
       <a
