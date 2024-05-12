@@ -1,3 +1,6 @@
+@use "@/styles/_variables" as var;
+
+
 .container_title {
   font-size: 24px;
   margin: 32px 0 0 16px;
@@ -16,11 +19,11 @@
   height: 200px;
   object-fit: cover;
   width: 200px;
-  @media (max-width: 767px) and (min-width: 425px) {
+  @include var.mq(md){
     height: 120px;
     width: 120px;
   }
-  @media (max-width: 424px) {
+  @include var.mq(sm) {
     height: 80px;
     width: 80px;
   }
@@ -36,7 +39,7 @@
 
 .movie_title{
     margin-top: 4px;
-    @media (max-width: 424px) {
+    @include var.mq(sm) {
         font-size: 12px;
       }
 }
@@ -51,7 +54,7 @@
   font-size: 24px;
   font-weight: 700;
   padding-left: 4px;
-  @media (max-width: 424px) {
+  @include var.mq(sm) {
     font-size: 16px;
   }
 }
