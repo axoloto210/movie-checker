@@ -16,7 +16,7 @@ export function RankIcon(props: Props) {
         points="10,170 10,50 70,120 100,50 130,120 190,50 190,170"
         fill={props.color}
         stroke="black"
-        strokeWidth="5"
+        strokeWidth="0"
       />
       <rect
         x="10"
@@ -25,7 +25,7 @@ export function RankIcon(props: Props) {
         height="20"
         fill={props.color}
         stroke="black"
-        strokeWidth="5"
+        strokeWidth="0"
       />
       <circle
         cx="10"
@@ -33,7 +33,7 @@ export function RankIcon(props: Props) {
         r="10"
         fill={props.color}
         stroke="black"
-        strokeWidth="2"
+        strokeWidth="0"
       />
       <circle
         cx="190"
@@ -41,7 +41,7 @@ export function RankIcon(props: Props) {
         r="10"
         fill={props.color}
         stroke="black"
-        strokeWidth="2"
+        strokeWidth="0"
       />
       <circle
         cx="100"
@@ -49,7 +49,7 @@ export function RankIcon(props: Props) {
         r="10"
         fill={props.color}
         stroke="black"
-        strokeWidth="2"
+        strokeWidth="0"
       />
     </svg>
   )
