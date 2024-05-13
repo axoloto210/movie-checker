@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 import styles from '@/features/mypage/watchedMovieRanking.module.scss'
 import Image from 'next/image'
+import { RankIcon } from './RankIcon'
 
 const rankLimit = 3 as const
 
@@ -61,10 +62,25 @@ const MovieRankingCard = (
   },
   index: number
 ) => {
+  const getRankIconColor = (index: number) => {
+    switch (index) {
+      case 0:
+        return 'gold'
+      case 1:
+        return 'silver'
+      case 2:
+        return 'brown'
+      default:
+        return 'gray'
+    }
+  }
+
+  const rankIconColor = getRankIconColor(index)
   return (
     <div>
       <p className={styles.rank}>
-        <span>{index + 1}</span>
+        <RankIcon color={rankIconColor} width="20px" height="20px" />
+        <span className="ml-1 mt-1">{index + 1} </span>
       </p>
       <a
         className={styles.link}
