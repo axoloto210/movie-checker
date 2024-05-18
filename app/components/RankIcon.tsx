@@ -6,11 +6,11 @@ type Props = {
 
 const getRankIconColor = (order: number) => {
   switch (order) {
-    case 0:
-      return 'gold'
     case 1:
-      return 'silver'
+      return 'gold'
     case 2:
+      return 'silver'
+    case 3:
       return 'brown'
     default:
       return 'gray'

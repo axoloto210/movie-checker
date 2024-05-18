@@ -65,7 +65,7 @@ const MovieRankingCard = (
   return (
     <div>
       <p className={styles.rank}>
-        <RankIcon order={index} width="20px" height="20px" />
+        <RankIcon order={index + 1} width="20px" height="20px" />
         <span className="ml-1 mt-1">{index + 1} </span>
       </p>
       <a
