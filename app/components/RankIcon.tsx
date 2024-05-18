@@ -1,10 +1,24 @@
 type Props = {
-  color: string
+  order: number
   width: string
   height: string
 }
 
+const getRankIconColor = (order: number) => {
+  switch (order) {
+    case 1:
+      return 'gold'
+    case 2:
+      return 'silver'
+    case 3:
+      return 'brown'
+    default:
+      return 'gray'
+  }
+}
+
 export function RankIcon(props: Props) {
+  const color = getRankIconColor(props.order)
   return (
     <svg
       width={props.width}
@@ -14,7 +28,7 @@ export function RankIcon(props: Props) {
     >
       <polygon
         points="10,170 10,50 70,120 100,50 130,120 190,50 190,170"
-        fill={props.color}
+        fill={color}
         stroke="black"
         strokeWidth="0"
       />
@@ -23,7 +37,7 @@ export function RankIcon(props: Props) {
         y="170"
         width="180"
         height="20"
-        fill={props.color}
+        fill={color}
         stroke="black"
         strokeWidth="0"
       />
@@ -31,7 +45,7 @@ export function RankIcon(props: Props) {
         cx="10"
         cy="40"
         r="10"
-        fill={props.color}
+        fill={color}
         stroke="black"
         strokeWidth="0"
       />
@@ -39,7 +53,7 @@ export function RankIcon(props: Props) {
         cx="190"
         cy="40"
         r="10"
-        fill={props.color}
+        fill={color}
         stroke="black"
         strokeWidth="0"
       />
@@ -47,7 +61,7 @@ export function RankIcon(props: Props) {
         cx="100"
         cy="40"
         r="10"
-        fill={props.color}
+        fill={color}
         stroke="black"
         strokeWidth="0"
       />
