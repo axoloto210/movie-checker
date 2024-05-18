@@ -12,6 +12,9 @@ import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 import MovieCard from './MovieCard'
 import { putFetch } from '@/lib/fetch'
+import { RankIcon } from '@/components/RankIcon'
+
+const rankLimit = 3 as const
 
 type Props = {
   movies: {
@@ -53,7 +56,7 @@ export function MovieDnDList(props: Props) {
       moviesOrder
     }
 
-    await putFetch<object, {}>('/updateMoviesOrder', body)
+    await putFetch<object, typeof body>('/updateMoviesOrder', body)
       .then(() => {
         alert('ランキングの順番を保存しました。')
       })
@@ -80,6 +83,9 @@ export function MovieDnDList(props: Props) {
             <Fragment key={movie.id}>
               <Droppable key={movie.id} id={String(index)}>
                 <Draggable id={String(index)}>
+                  {index < rankLimit ? (
+                    <RankIcon order={index + 1} width="20px" height="20px" />
+                  ) : null}
                   <MovieCard
                     movieId={movie.id}
                     title={movie.title}
