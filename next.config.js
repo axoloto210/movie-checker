@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    staleTimes: {
+      dynamic: 1,
+      static: 1,
+    },
+  },
   images: {
     //Next 14から非推奨に。
     //https://nextjs.org/docs/app/api-reference/components/image#remotepatterns
