@@ -30,6 +30,13 @@ const nextConfig = {
 
 		return config;
 	},
+  // ----for develop----
+    logging: {
+      fetches: {
+        fullUrl: true,
+      },
+    },
+  // -------------------
 }
 
 module.exports = nextConfig
