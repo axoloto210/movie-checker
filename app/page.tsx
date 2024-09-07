@@ -25,8 +25,8 @@ export default function Home() {
       <Image
         src="/favicon.ico"
         alt="main Image"
-        width={700}
-        height={475}
+        width={100}
+        height={100}
         sizes="100vw"
         style={{
           width: '100%',
