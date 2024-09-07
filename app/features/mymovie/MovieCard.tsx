@@ -81,11 +81,14 @@ export default function MovieCard(props: Props) {
             <Box position={'relative'} className="w-25 h-25 md:w-50 md:h-50">
               <Box className="flex p-0 gap-2 flex-nowrap">
                 <Box>
-                  <AvatarLogo src={props.image ?? '/favicon.ico'} />
+                  <AvatarLogo
+                    src={!!props.image ? props.image : '/favicon.ico'}
+                    alt={`${props.title}の画像`}
+                  />
                 </Box>
                 <Box className="self-end">
                   <h2 className="font-fjalla md:font-sans md:text-sm text-xxs m-0 text-white">
-                    {<>{props.title}</>}
+                    {props.title}
                   </h2>
                 </Box>
               </Box>
