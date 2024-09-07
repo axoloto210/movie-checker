@@ -74,46 +74,44 @@ type Props = {
 
 export default function MovieCard(props: Props) {
   return (
-    <>
-      <Grid item>
-        <StyledRoot>
-          <StyledContent>
-            <Box position={'relative'} className="w-25 h-25 md:w-50 md:h-50">
-              <Box className="flex p-0 gap-2 flex-nowrap">
-                <Box>
-                  <AvatarLogo
-                    src={!!props.image ? props.image : '/favicon.ico'}
-                    alt={`${props.title}の画像`}
-                  />
-                </Box>
-                <Box className="self-end">
-                  <h2 className="font-fjalla md:font-sans md:text-sm text-xxs m-0 text-white">
-                    {props.title}
-                  </h2>
-                </Box>
+    <Grid item>
+      <StyledRoot>
+        <StyledContent>
+          <Box position={'relative'} className="w-25 h-25 md:w-50 md:h-50">
+            <Box className="flex p-0 gap-2 flex-nowrap">
+              <Box>
+                <AvatarLogo
+                  src={!!props.image ? props.image : '/favicon.ico'}
+                  alt={`${props.title}の画像`}
+                />
               </Box>
-              <Box className="flex md:mt-8 mt-4 justify-between items-center">
-                <Box
-                  component="a"
-                  href={props.siteURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white md:mt-12 mt-4 hover:text-green-500 text-xxs md:text-xs"
-                >
-                  公式サイトへ
-                </Box>
-                <Box
-                  component="div"
-                  onClick={() => clickDeleteHandler(props.movieId, props.title)}
-                  className="text-white md:mt-12 mt-4 hover:text-red-500 text-xxs md:text-xs"
-                >
-                  削除
-                </Box>
+              <Box className="self-end">
+                <h2 className="font-fjalla md:font-sans md:text-sm text-xxs m-0 text-white">
+                  {props.title}
+                </h2>
               </Box>
             </Box>
-          </StyledContent>
-        </StyledRoot>
-      </Grid>
-    </>
+            <Box className="flex md:mt-8 mt-4 justify-between items-center">
+              <Box
+                component="a"
+                href={props.siteURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white md:mt-12 mt-4 hover:text-green-500 text-xxs md:text-xs"
+              >
+                公式サイトへ
+              </Box>
+              <Box
+                component="div"
+                onClick={() => clickDeleteHandler(props.movieId, props.title)}
+                className="text-white md:mt-12 mt-4 hover:text-red-500 text-xxs md:text-xs"
+              >
+                削除
+              </Box>
+            </Box>
+          </Box>
+        </StyledContent>
+      </StyledRoot>
+    </Grid>
   )
 }
