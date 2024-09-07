@@ -22,7 +22,17 @@ export default function Home() {
           Get start
         </Link>
       </div>
-      <Image src="/favicon.ico" alt="main Image" width={10000} height={300} />
+      <Image
+        src="/favicon.ico"
+        alt="main Image"
+        width={100}
+        height={100}
+        sizes="100vw"
+        style={{
+          width: '100%',
+          height: 'auto'
+        }}
+      />
     </>
   )
 }
