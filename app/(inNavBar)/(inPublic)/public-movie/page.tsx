@@ -7,9 +7,5 @@ import type { PublicMovie } from '@/features/public-movie/getAllPublicMovies'
 export default async function PublicMovie() {
   const publicMovies = await getAllPublicMovies()
 
-  return (
-    <>
-      <PublicMovieList publicMovies={publicMovies} />
-    </>
-  )
+  return <PublicMovieList publicMovies={publicMovies} />
 }

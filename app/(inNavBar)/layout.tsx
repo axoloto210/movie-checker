@@ -5,9 +5,5 @@ export default function PublicMovieLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <>
-      <NextAuthProvider>{children}</NextAuthProvider>
-    </>
-  )
+  return <NextAuthProvider>{children}</NextAuthProvider>
 }
