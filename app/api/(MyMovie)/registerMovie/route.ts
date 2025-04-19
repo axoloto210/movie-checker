@@ -1,5 +1,6 @@
 import { RegisteredMovie } from '@/features/movieRegistration/MovieRegistrationForm'
 import prisma from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
@@ -27,6 +28,8 @@ export async function POST(req: NextRequest) {
     }
 
     const result: RegisterMovieResult = { title, siteURL, image, status: 200 }
+    revalidatePath('/mymovie') //みた映画情報を読み込み直す。
+    revalidatePath('/mypage') //マイページのみた映画情報を読み込み直す。
     return Response.json(result)
   } catch (error) {
     console.log(error)

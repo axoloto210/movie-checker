@@ -103,14 +103,16 @@ export function MovieDnDList(props: Props) {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
-    const sortedMovies = [...movies]
 
-    const draggedId = active.id
-    const droppedId = over?.id
+    const draggedId = Number(active.id)
+    const droppedId = Number(over?.id)
 
     if (draggedId != null && droppedId != null) {
-      sortedMovies[Number(draggedId)] = movies[Number(droppedId)]
-      sortedMovies[Number(droppedId)] = movies[Number(draggedId)]
+      const draggedMovie = movies[draggedId]
+
+      const sortedMovies = movies
+        .toSpliced(draggedId, 1) //remove dragged movie
+        .toSpliced(droppedId, 0, draggedMovie) //insert dragged movie
 
       setMovies(sortedMovies)
     }
