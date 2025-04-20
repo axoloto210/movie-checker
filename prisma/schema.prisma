@@ -65,6 +65,7 @@ model Movie {
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   order     Int      @default(autoincrement())
+  watched   Boolean  @default(false)
 }
 
 model PublicMovie {
