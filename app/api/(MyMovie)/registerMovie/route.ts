@@ -8,6 +8,7 @@ export type RegisterMovieResult = {
   title: string
   siteURL: string
   image: string
+  watched: boolean
   status: number
 }
 
@@ -15,20 +16,30 @@ const schema = z.object({
   title: z.string(),
   siteURL: z.string(),
   image: z.string(),
+  watched: z.boolean(),
   userEmail: z.string()
 })
 
 export async function POST(req: NextRequest) {
   try {
-    const { title, siteURL, image, userEmail } = schema.parse(await req.json())
+    const { title, siteURL, image, watched, userEmail } = schema.parse(
+      await req.json()
+    )
 
     const user = await getUserId(userEmail)
     if (user !== null) {
-      createRegisteredMovie({ title, siteURL, image }, user.id)
+      createRegisteredMovie({ title, siteURL, image, watched }, user.id)
     }
 
-    const result: RegisterMovieResult = { title, siteURL, image, status: 200 }
+    const result: RegisterMovieResult = {
+      title,
+      siteURL,
+      image,
+      watched,
+      status: 200
+    }
     revalidatePath('/mymovie') //みた映画情報を読み込み直す。
+    revalidatePath('/watch-list') //みた映画情報を読み込み直す。
     revalidatePath('/mypage') //マイページのみた映画情報を読み込み直す。
     return Response.json(result)
   } catch (error) {

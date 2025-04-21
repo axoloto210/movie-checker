@@ -1,11 +1,13 @@
 import { RegisterMovieResult } from '@/api/(MyMovie)/registerMovie/route'
 import { postFetch } from '@/lib/fetch'
+import { Checkbox, FormControlLabel } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
 export type RegisteredMovie = {
   title: string
   siteURL: string
   image: string | null
+  watched?: boolean
 }
 
 type Props = {
@@ -22,7 +24,8 @@ const MovieRegistrationForm = (props: Props) => {
   const defaultValues: RegisteredMovie = {
     title: '',
     siteURL: '',
-    image: ''
+    image: '',
+    watched: false
   }
 
   const {
@@ -38,14 +41,15 @@ const MovieRegistrationForm = (props: Props) => {
     }
 
     await postFetch<object, RegisterMovieResult>('/registerMovie', body)
-      .then(({ title, siteURL, image }) => {
+      .then(({ title, siteURL, image, watched }) => {
         alert(
           '入力データを登録しました。\n' +
             `タイトル： ${title} \n` +
             `サイトURL： ${siteURL} \n` +
             `画像URL： ${image}`
         )
-        window.location.href = '/mymovie'
+
+        window.location.href = watched ? '/mymovie' : '/watch-list'
       })
       .catch(() =>
         alert('エラーが発生しました。時間をあけて再度お試しください。')
@@ -57,7 +61,7 @@ const MovieRegistrationForm = (props: Props) => {
   return (
     <>
       <div className="flex center-text justify-center mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
-        みた映画を登録
+        映画を登録
       </div>
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
@@ -97,6 +101,10 @@ const MovieRegistrationForm = (props: Props) => {
           className={'form-text-area'}
           {...register('image')}
         ></textarea>
+        <FormControlLabel
+          control={<Checkbox id="watched" {...register('watched')} />}
+          label="みた！"
+        />
         <div className="flex justify-center">
           <button type="submit" className="blue-button mt-6">
             登録
