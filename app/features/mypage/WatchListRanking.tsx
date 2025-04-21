@@ -9,7 +9,7 @@ import { RankIcon } from '../../components/RankIcon'
 
 const rankLimit = 3 as const
 
-export async function WatchedMovieRanking() {
+export async function WatchListRanking() {
   const session = await getServerSession(authOptions)
   if (!session) {
     redirect('/mypage')
@@ -25,7 +25,7 @@ export async function WatchedMovieRanking() {
   const movies = await prisma.movie.findMany({
     where: {
       authorId: author.id,
-      watched: true
+      watched: false
     },
     select: {
       id: true,
@@ -42,7 +42,9 @@ export async function WatchedMovieRanking() {
   })
   return (
     <>
-      <div className={styles.containerTitle}>{`みた映画 TOP${rankLimit}`}</div>
+      <div
+        className={styles.containerTitle}
+      >{`みたい映画 TOP${rankLimit}`}</div>
       <div className={styles.container}>
         {movies?.map((movie, index) => {
           return (
