@@ -20,25 +20,25 @@ import { useState } from 'react'
 
 const menuTitle = 'メニューを開く'
 
-const routes = {
+const ROUTES = {
   mymovie: '/mymovie',
   mypage: '/mypage',
-  publicMovie: '/public-movie'
-} as const satisfies { [key in string]: string }
+  publicMovie: '/public-movie',
+  watchList: '/watch-list'
+} as const
 
-type Route = (typeof routes)[keyof typeof routes]
+type Route = (typeof ROUTES)[keyof typeof ROUTES]
 
 type Page = { title: string; route: string }
 
-const pages = [
-  { title: 'マイページ', route: routes.mypage },
-  { title: '映画を探す', route: routes.publicMovie },
-  { title: 'みた映画', route: routes.mymovie }
+const PRIVATE_PAGES = [
+  { title: 'みた映画', route: ROUTES.mymovie },
+  { title: 'みたい映画', route: ROUTES.watchList }
 ] as const satisfies Readonly<Page[]>
 
-const publicPages = [
-  { title: 'マイページ', route: routes.mypage },
-  { title: '映画を探す', route: routes.publicMovie }
+const PUBLIC_PAGES = [
+  { title: 'マイページ', route: ROUTES.mypage },
+  { title: '映画を探す', route: ROUTES.publicMovie }
 ] as const satisfies Readonly<Page[]>
 
 type Props = {
@@ -151,7 +151,7 @@ function ResponsiveAppBar(props: Props) {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
+              {PRIVATE_PAGES.map((page) => (
                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
@@ -180,11 +180,13 @@ function ResponsiveAppBar(props: Props) {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {session
-              ? pages.map((page) => <HeaderLink key={page.title} {...page} />)
-              : publicPages.map((publicPage) => (
-                  <HeaderLink key={publicPage.title} {...publicPage} />
-                ))}
+            {PUBLIC_PAGES.map((publicPage) => (
+              <HeaderLink key={publicPage.title} {...publicPage} />
+            ))}
+            {session &&
+              PRIVATE_PAGES.map((privatePage) => (
+                <HeaderLink key={privatePage.title} {...privatePage} />
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -209,47 +211,46 @@ function ResponsiveAppBar(props: Props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {session
-                ? [
-                    <MenuItem
-                      key={'mypage'}
-                      onClick={() => handleClickMenu(routes.mypage)}
-                    >
-                      <Typography textAlign="center">マイページ</Typography>
-                    </MenuItem>,
-                    <MenuItem
-                      key={'public-movie'}
-                      onClick={() => handleClickMenu(routes.publicMovie)}
-                    >
-                      <Typography textAlign="center">映画を探す</Typography>
-                    </MenuItem>,
-                    <MenuItem
-                      key={'mymovie'}
-                      onClick={() => handleClickMenu(routes.mymovie)}
-                    >
-                      <Typography textAlign="center">みた映画</Typography>
-                    </MenuItem>,
-                    <MenuItem key={'logout'} onClick={handleLogOut}>
-                      <Typography textAlign="center">ログアウト</Typography>
-                    </MenuItem>
-                  ]
-                : [
-                    <MenuItem
-                      key={'mypage'}
-                      onClick={() => handleClickMenu(routes.mypage)}
-                    >
-                      <Typography textAlign="center">マイページ</Typography>
-                    </MenuItem>,
-                    <MenuItem
-                      key={'public-movie'}
-                      onClick={() => handleClickMenu(routes.publicMovie)}
-                    >
-                      <Typography textAlign="center">映画を探す</Typography>
-                    </MenuItem>,
-                    <MenuItem key={'login'} onClick={handleLogIn}>
-                      <Typography textAlign="center">ログイン</Typography>
-                    </MenuItem>
-                  ]}
+              {[
+                ...[
+                  <MenuItem
+                    key={'mypage'}
+                    onClick={() => handleClickMenu(ROUTES.mypage)}
+                  >
+                    <Typography textAlign="center">マイページ</Typography>
+                  </MenuItem>,
+                  <MenuItem
+                    key={'public-movie'}
+                    onClick={() => handleClickMenu(ROUTES.publicMovie)}
+                  >
+                    <Typography textAlign="center">映画を探す</Typography>
+                  </MenuItem>
+                ],
+
+                ...(session
+                  ? [
+                      <MenuItem
+                        key={'mymovie'}
+                        onClick={() => handleClickMenu(ROUTES.mymovie)}
+                      >
+                        <Typography textAlign="center">みた映画</Typography>
+                      </MenuItem>,
+                      <MenuItem
+                        key={'watch-list'}
+                        onClick={() => handleClickMenu(ROUTES.watchList)}
+                      >
+                        <Typography textAlign="center">みたい映画</Typography>
+                      </MenuItem>,
+                      <MenuItem key={'logout'} onClick={handleLogOut}>
+                        <Typography textAlign="center">ログアウト</Typography>
+                      </MenuItem>
+                    ]
+                  : [
+                      <MenuItem key={'login'} onClick={handleLogIn}>
+                        <Typography textAlign="center">ログイン</Typography>
+                      </MenuItem>
+                    ])
+              ]}
             </Menu>
           </Box>
         </Toolbar>

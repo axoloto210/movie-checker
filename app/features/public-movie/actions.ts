@@ -66,7 +66,7 @@ export default async function searchPublicMovies(
  * @param movieId
  * @returns
  */
-export async function registerMovieAction(movieId: number) {
+export async function registerWatchedMovieAction(movieId: number) {
   const session = await getServerSession(authOptions)
 
   if (session?.user?.email == null) {
@@ -85,7 +85,8 @@ export async function registerMovieAction(movieId: number) {
   await prisma.movie.create({
     data: {
       ...publicMovieData,
-      authorId
+      authorId,
+      watched: true
     }
   })
 
@@ -115,4 +116,37 @@ async function getPublicMovieByMovieId(movieId: number) {
     }
   })
   return publicMovie
+}
+
+/**
+ * publicMovieの映画情報をMovieへwatchListに登録します。
+ * @param movieId
+ * @returns
+ */
+export async function registerWatchListAction(movieId: number) {
+  const session = await getServerSession(authOptions)
+
+  if (session?.user?.email == null) {
+    return
+  }
+  const authorId = await getUserId(session.user.email)
+  if (authorId == null) {
+    return
+  }
+
+  const publicMovieData = await getPublicMovieByMovieId(movieId)
+  if (publicMovieData === null) {
+    return
+  }
+
+  await prisma.movie.create({
+    data: {
+      ...publicMovieData,
+      authorId,
+      watched: false
+    }
+  })
+
+  revalidatePath('/watch-list') //みたい映画情報を読み込み直す。
+  redirect('/watch-list')
 }

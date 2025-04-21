@@ -1,5 +1,6 @@
 import { authOptions } from '@/api/auth/authOptions'
 import { LoginCaveat } from '@/components/LoginCaveat'
+import { WatchListRanking } from '@/features/mypage/WatchListRanking'
 import { WatchedMovieRanking } from '@/features/mypage/WatchedMovieRanking'
 import { getServerSession } from 'next-auth'
 
@@ -14,13 +15,14 @@ export default async function Mypage() {
         <>
           <div className="flex justify-between">
             <Link href="/mypage/register-movie">
-              <button className="blue-button ml-4">みた映画を登録</button>
+              <button className="blue-button ml-4">映画を登録</button>
             </Link>
             <Link href="/public-movie">
-              <button className="blue-button mr-4">みた映画を探す</button>
+              <button className="blue-button mr-4">映画を探す</button>
             </Link>
           </div>
           <WatchedMovieRanking />
+          <WatchListRanking />
         </>
       ) : (
         <LoginCaveat />

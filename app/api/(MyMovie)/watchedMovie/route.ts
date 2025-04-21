@@ -1,40 +1,31 @@
-import { RegisteredMovie } from '@/features/movieRegistration/MovieRegistrationForm'
 import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
 export type RegisterMovieResult = {
-  title: string
-  siteURL: string
-  image: string
+  movieId: number
   watched: boolean
   status: number
 }
 
 const schema = z.object({
-  title: z.string(),
-  siteURL: z.string(),
-  image: z.string(),
+  movieId: z.number(),
   watched: z.boolean(),
   userEmail: z.string()
 })
 
 export async function POST(req: NextRequest) {
   try {
-    const { title, siteURL, image, watched, userEmail } = schema.parse(
-      await req.json()
-    )
+    const { movieId, watched, userEmail } = schema.parse(await req.json())
 
     const user = await getUserId(userEmail)
     if (user !== null) {
-      createRegisteredMovie({ title, siteURL, image, watched }, user.id)
+      updateWatched({ movieId, watched }, user.id)
     }
 
     const result: RegisterMovieResult = {
-      title,
-      siteURL,
-      image,
+      movieId,
       watched,
       status: 200
     }
@@ -60,12 +51,34 @@ async function getUserId(userEmail: string) {
   return userId
 }
 
-async function createRegisteredMovie(movie: RegisteredMovie, authorId: string) {
-  await prisma.movie.create({
-    data: {
-      ...movie,
-      authorId
+async function updateWatched(
+  movie: {
+    movieId: number
+    watched: boolean
+  },
+  authorId: string
+) {
+  const maxOrderMovie = await prisma.movie.findFirst({
+    where: {
+      authorId: authorId,
+      watched: true
+    },
+    orderBy: {
+      order: 'desc'
     }
   })
-  return movie
+
+  const newOrder = maxOrderMovie ? (maxOrderMovie.order || 0) + 1 : 1
+
+  await prisma.movie.update({
+    where: {
+      id: movie.movieId,
+      authorId: authorId
+    },
+    data: {
+      watched: movie.watched,
+      order: newOrder
+    }
+  })
+  return movie.movieId
 }

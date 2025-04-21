@@ -4,7 +4,7 @@ import { authOptions } from 'app/api/auth/authOptions'
 import { MovieDnDList } from 'app/features/mymovie/MovieDnDList'
 import prisma from 'app/lib/prisma'
 
-export default async function MyMovie() {
+export default async function WatchList() {
   const session = await getServerSession(authOptions)
   if (!session) {
     redirect('/mypage')
@@ -20,7 +20,7 @@ export default async function MyMovie() {
   const movies = await prisma.movie.findMany({
     where: {
       authorId: author.id,
-      watched: true
+      watched: false
     },
     select: {
       id: true,
@@ -35,5 +35,15 @@ export default async function MyMovie() {
     }
   })
 
-  return <>{session && <MovieDnDList movies={movies} />}</>
+  return (
+    <>
+      {session && (
+        <MovieDnDList
+          movies={movies}
+          isWatchList
+          userEmail={session.user?.email ?? ''}
+        />
+      )}
+    </>
+  )
 }
