@@ -19,14 +19,16 @@ export default async function MyMovie() {
   }
   const movies = await prisma.movie.findMany({
     where: {
-      authorId: author.id
+      authorId: author.id,
+      watched: true
     },
     select: {
       id: true,
       title: true,
       siteURL: true,
       image: true,
-      order: true
+      order: true,
+      watched: true
     },
     orderBy: {
       order: 'asc'
