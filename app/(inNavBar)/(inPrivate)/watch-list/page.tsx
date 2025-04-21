@@ -35,5 +35,15 @@ export default async function WatchList() {
     }
   })
 
-  return <>{session && <MovieDnDList movies={movies} />}</>
+  return (
+    <>
+      {session && (
+        <MovieDnDList
+          movies={movies}
+          isWatchList
+          userEmail={session.user?.email ?? ''}
+        />
+      )}
+    </>
+  )
 }

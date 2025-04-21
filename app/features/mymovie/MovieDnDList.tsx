@@ -24,6 +24,8 @@ type Props = {
     image: string | null
     order: number
   }[]
+  isWatchList?: boolean
+  userEmail: string
 }
 
 export function MovieDnDList(props: Props) {
@@ -91,6 +93,8 @@ export function MovieDnDList(props: Props) {
                     title={movie.title}
                     siteURL={movie.siteURL ?? '/'}
                     image={movie.image}
+                    userEmail={props.userEmail}
+                    isWatchedList={props.isWatchList}
                   />
                 </Draggable>
               </Droppable>
