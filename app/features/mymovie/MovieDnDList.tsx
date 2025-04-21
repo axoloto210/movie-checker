@@ -25,7 +25,7 @@ type Props = {
     order: number
   }[]
   isWatchList?: boolean
-  userEmail: string
+  userEmail?: string
 }
 
 export function MovieDnDList(props: Props) {

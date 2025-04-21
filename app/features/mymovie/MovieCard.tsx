@@ -66,6 +66,9 @@ const clickDeleteHandler = async (movieId: number, title: string) => {
 }
 
 const clickWatchedHandler = async (movieId: number, userEmail: string) => {
+  if (userEmail === '') {
+    return
+  }
   await postFetch(`watchedMovie`, { movieId, watched: true, userEmail })
   window.location.reload()
 }
@@ -76,7 +79,7 @@ type Props = {
   siteURL: string
   image: string | null
   isWatchedList?: boolean
-  userEmail: string
+  userEmail?: string
 }
 
 export default function MovieCard(props: Props) {
@@ -115,11 +118,11 @@ export default function MovieCard(props: Props) {
               >
                 削除
               </Box>
-              {props.isWatchedList && (
+              {props.isWatchedList && props.userEmail !== undefined && (
                 <Box
                   component="div"
                   onClick={() =>
-                    clickWatchedHandler(props.movieId, props.userEmail)
+                    clickWatchedHandler(props.movieId, props.userEmail ?? '')
                   }
                   className="text-white md:mt-12 mt-4 hover:text-yellow-300 text-xxs md:text-xs"
                 >
