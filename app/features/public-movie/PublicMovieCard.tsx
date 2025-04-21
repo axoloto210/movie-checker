@@ -1,13 +1,17 @@
 import styles from '@/features/public-movie/publicMovieCard.module.scss'
 import { PublicMovie } from '@/features/public-movie/getAllPublicMovies'
-import { registerMovieAction } from '@/features/public-movie/actions'
+import {
+  registerWatchedMovieAction,
+  registerWatchListAction
+} from '@/features/public-movie/actions'
 
 type Props = {
   isLogin: boolean
 } & PublicMovie
 
 export function PublicMovieCard(props: Props) {
-  const fromAction = registerMovieAction.bind(null, props.id)
+  const watchedMovieAction = registerWatchedMovieAction.bind(null, props.id)
+  const watchListAction = registerWatchListAction.bind(null, props.id)
   return (
     <div className={styles.parentCard}>
       <div className={styles.card}>
@@ -26,7 +30,14 @@ export function PublicMovieCard(props: Props) {
           </a>
         </div>
         {props.isLogin && (
-          <form className={styles.form} action={fromAction}>
+          <form className={styles.form} action={watchListAction}>
+            <button className={styles.watchListButton} type="submit">
+              みる！
+            </button>
+          </form>
+        )}
+        {props.isLogin && (
+          <form className={styles.form} action={watchedMovieAction}>
             <button className={styles.watchedButton} type="submit">
               みた！
             </button>
