@@ -112,7 +112,8 @@ async function getPublicMovieByMovieId(movieId: number) {
     select: {
       title: true,
       siteURL: true,
-      image: true
+      image: true,
+      publicationDate: true
     }
   })
   return publicMovie
