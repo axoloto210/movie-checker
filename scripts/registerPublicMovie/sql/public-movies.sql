@@ -1,0 +1,2 @@
+insert into "PublicMovie" ("publicationDate", title, "siteURL", image) VALUES ('2025-05-04', 'example1', 'https://example.com', 'https://example.com/image.png');
+insert into "PublicMovie" ("publicationDate", title, "siteURL", image) VALUES ('2025-05-04', 'example2', 'https://example.com', 'https://example.com/image.png');
