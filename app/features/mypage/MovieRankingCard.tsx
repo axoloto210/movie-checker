@@ -1,5 +1,6 @@
 import { RankIcon } from '@/components/RankIcon'
 import styles from '@/features/mypage/watchedMovieRanking.module.scss'
+import { formatYYYYMMDD } from '@/utils/formatDate'
 import Image from 'next/image'
 
 export const MovieRankingCard = (
@@ -9,9 +10,13 @@ export const MovieRankingCard = (
     title: string
     siteURL: string | null
     order: number
+    publicationDate?: Date | null
   },
   index: number
 ) => {
+  const formattedPublicationDate = movie.publicationDate
+    ? formatYYYYMMDD(movie.publicationDate)
+    : null
   return (
     <div>
       <p className={styles.rank}>
@@ -36,6 +41,13 @@ export const MovieRankingCard = (
       <div className={styles.movieLabel}>
         <p className={styles.movieTitle}>{movie.title}</p>
       </div>
+      {formattedPublicationDate && (
+        <div>
+          <p
+            className={styles.movieLabel}
+          >{`公開日: ${formattedPublicationDate}`}</p>
+        </div>
+      )}
     </div>
   )
 }
