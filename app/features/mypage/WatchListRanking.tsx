@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 import styles from '@/features/mypage/watchedMovieRanking.module.scss'
 import { MovieRankingCard } from './MovieRankingCard'
+import Link from 'next/link'
 
 const rankLimit = 3 as const
 
@@ -42,9 +43,11 @@ export async function WatchListRanking() {
   })
   return (
     <>
-      <div
-        className={styles.containerTitle}
-      >{`みたい映画 TOP${rankLimit}`}</div>
+      <div className={styles.containerTitle}>
+        <Link className={styles.link} href={'/watch-list'}>
+          {`みたい映画 TOP${rankLimit}`}
+        </Link>
+      </div>
       <div className={styles.container}>
         {movies?.map((movie, index) => {
           return (
