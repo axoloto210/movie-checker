@@ -6,6 +6,12 @@
   margin: 32px 0 0 16px;
 }
 
+.link{
+    &:hover{
+    opacity: 0.6;
+  }
+}
+
 .container {
   display: grid;
   gap: 32px 32px;
