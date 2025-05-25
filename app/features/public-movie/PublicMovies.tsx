@@ -1,8 +1,9 @@
 'use client'
+import { useActionState } from 'react'
 import styles from '@/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
 import searchPublicMovies from '@/features/public-movie/actions'
 import { useSession } from 'next-auth/react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormStatus } from 'react-dom'
 import { PublicMovieCard } from './PublicMovieCard'
 import { PublicMovie } from './getAllPublicMovies'
 
@@ -29,7 +30,7 @@ export function PublicMovieList(props: Props) {
 
   const { status } = useSession()
 
-  const [state, formAction] = useFormState(searchPublicMovies, initialState)
+  const [state, formAction] = useActionState(searchPublicMovies, initialState)
 
   return (
     <>

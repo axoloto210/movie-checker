@@ -5,8 +5,9 @@ import { NextRequest } from 'next/server'
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { movieId: string } }
+  props: { params: Promise<{ movieId: string }> }
 ) {
+  const params = await props.params
   const session = await getServerSession(authOptions)
 
   if (!session) {
