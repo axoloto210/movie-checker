@@ -26,6 +26,10 @@ export function Modal({ children }: { children: React.ReactNode }) {
     }
   }
 
+  if (typeof window === 'undefined') {
+    return null
+  }
+
   return createPortal(
     <div className="modal-backdrop" onClick={onBackdropClick}>
       <dialog ref={dialogRef} className="modal" onClose={onDismiss}>
