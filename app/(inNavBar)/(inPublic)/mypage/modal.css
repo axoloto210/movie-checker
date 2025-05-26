@@ -52,7 +52,7 @@
   }
   
   .close-button:after {
-    content: 'x';
+    content: '×';
     color: black;
   }
   
