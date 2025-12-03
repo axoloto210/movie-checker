@@ -31,8 +31,8 @@
     "next": "15.5.7",
     "next-auth": "^4.24.11",
     "nextjs-toploader": "^1.6.12",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.2",
+    "react-dom": "19.1.2",
     "react-hook-form": "^7.60.0",
     "sharp": "^0.32.6",
     "zod": "^3.25.76"
