@@ -67,6 +67,8 @@ model Movie {
   order     Int      @default(autoincrement())
   watched   Boolean  @default(false)
   publicationDate DateTime? @db.Date
+  watchedDate DateTime? @db.Date
+  plannedDate DateTime? @db.Date
 }
 
 model PublicMovie {
