@@ -28,7 +28,8 @@ export default async function MyMovie() {
       siteURL: true,
       image: true,
       order: true,
-      watched: true
+      watched: true,
+      watchedDate: true
     },
     orderBy: {
       order: 'asc'

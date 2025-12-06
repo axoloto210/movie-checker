@@ -33,7 +33,8 @@ export async function WatchedMovieRanking() {
       siteURL: true,
       image: true,
       order: true,
-      watched: true
+      watched: true,
+      watchedDate: true
     },
     orderBy: {
       order: 'asc'

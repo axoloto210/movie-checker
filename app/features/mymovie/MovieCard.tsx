@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Color from 'color'
 import React from 'react'
+import { formatYYYYMMDD } from '@/utils/formatDate'
 
 const defaultColor = '#1976D2'
 
@@ -80,9 +81,13 @@ type Props = {
   image: string | null
   isWatchedList?: boolean
   userEmail?: string
+  watchedDate?: Date | null
 }
 
 export default function MovieCard(props: Props) {
+  const formattedWatchedDate = props.watchedDate
+    ? formatYYYYMMDD(props.watchedDate)
+    : null
   return (
     <Grid item>
       <StyledRoot>
@@ -99,6 +104,11 @@ export default function MovieCard(props: Props) {
                 <h2 className="font-fjalla md:font-sans md:text-sm text-xxs m-0 text-white">
                   {props.title}
                 </h2>
+                {formattedWatchedDate && (
+                  <p className="text-xxs md:text-xs m-0 mt-1 text-white">
+                    みた日: {formattedWatchedDate}
+                  </p>
+                )}
               </Box>
             </Box>
             <Box className="flex md:mt-8 mt-4 justify-between items-center">
