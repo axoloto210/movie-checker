@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "TZ=Asia/Tokyo next dev --turbopack",
+    "dev": "TZ=Asia/Tokyo next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -80,6 +80,6 @@
     }
   },
   "engines": {
-    "node": ">=22.17.1"
+    "node": ">=24.4.1"
   }
 }
