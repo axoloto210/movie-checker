@@ -1,6 +1,6 @@
 @use "@/styles/_variables" as var;
 
-.container_title {
+.containerTitle {
   border-bottom: 1px solid #d5d9de;
   font-size: 24px;
   margin: 32px 0 0 16px;
@@ -14,7 +14,7 @@
   margin: 16px;
 }
 
-.img_container {
+.imgContainer {
   height: 200px;
   object-fit: cover;
   width: 200px;
@@ -38,7 +38,7 @@
   }
 }
 
-.movie_title{
+.movieTitle{
     margin-top: 4px;
 
     @include var.mq(sm) {
@@ -46,7 +46,7 @@
       }
   }
 
-.movie_label{
+.movieLabel{
     display: flex;
     justify-content: center;
   }
