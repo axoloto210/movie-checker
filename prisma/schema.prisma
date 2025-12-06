@@ -57,8 +57,8 @@ model VerificationToken {
 
 model Movie {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
   title     String
   siteURL   String?
   image     String?
