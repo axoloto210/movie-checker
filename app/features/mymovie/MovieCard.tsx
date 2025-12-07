@@ -16,6 +16,7 @@ import {
   Button,
   TextField
 } from '@mui/material'
+import { MyMovieEditor } from './MyMovieEditor'
 
 const defaultColor = '#1976D2'
 
@@ -87,6 +88,7 @@ type Props = {
 
 export default function MovieCard(props: Props) {
   const [modalOpen, setModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
   const [watchedDateInput, setWatchedDateInput] = useState('')
 
   const formattedWatchedDate = props.watchedDate
@@ -103,6 +105,14 @@ export default function MovieCard(props: Props) {
   const handleModalClose = () => {
     setModalOpen(false)
     setWatchedDateInput('')
+  }
+
+  const handleEditClick = () => {
+    setEditModalOpen(true)
+  }
+
+  const handleEditModalClose = () => {
+    setEditModalOpen(false)
   }
 
   const handleWatchedSubmit = async () => {
@@ -159,6 +169,13 @@ export default function MovieCard(props: Props) {
               </Box>
               <Box
                 component="div"
+                onClick={handleEditClick}
+                className="text-white md:mt-12 mt-4 hover:text-blue-300 text-xxs md:text-xs cursor-pointer"
+              >
+                編集
+              </Box>
+              <Box
+                component="div"
                 onClick={() => clickDeleteHandler(props.movieId, props.title)}
                 className="text-white md:mt-12 mt-4 hover:text-red-500 text-xxs md:text-xs"
               >
@@ -200,6 +217,18 @@ export default function MovieCard(props: Props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <MyMovieEditor
+        open={editModalOpen}
+        handleCloseAction={handleEditModalClose}
+        movieId={props.movieId}
+        initialTitle={props.title}
+        initialSiteURL={props.siteURL}
+        initialImage={props.image}
+        initialWatchedDate={props.watchedDate}
+        initialPlannedDate={props.plannedDate}
+        isWatchedList={props.isWatchedList}
+      />
     </Grid>
   )
 }
