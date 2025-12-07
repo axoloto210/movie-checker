@@ -24,7 +24,7 @@
   }
 }
 
-.parent-card {
+.parentCard {
   display: flex;
   margin: 16px auto 16px;
   margin-bottom: 4px;
@@ -35,11 +35,11 @@
   margin: 8px 0 0 4px;
 }
 
-.publication-date {
+.publicationDate {
   margin: 8px 0 0 4px;
 }
 
-.button-base {
+.buttonBase {
   background-color: #34d399;
   border-radius: 8px;
   color: white;
@@ -55,13 +55,13 @@
   }
 }
 
-.watched-button {
-@extend .button-base;
+.watchedButton {
+@extend .buttonBase;
   bottom: 8px;
 
 }
 
-.watch-list-button {
-@extend .button-base;
+.watchListButton {
+@extend .buttonBase;
   bottom: 50px;
 }

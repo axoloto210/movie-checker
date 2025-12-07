@@ -6,7 +6,17 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Color from 'color'
-import React from 'react'
+import React, { useState } from 'react'
+import { formatYYYYMMDD } from '@/utils/formatDate'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField
+} from '@mui/material'
+import { MyMovieEditor } from './MyMovieEditor'
 
 const defaultColor = '#1976D2'
 
@@ -65,14 +75,6 @@ const clickDeleteHandler = async (movieId: number, title: string) => {
   }
 }
 
-const clickWatchedHandler = async (movieId: number, userEmail: string) => {
-  if (userEmail === '') {
-    return
-  }
-  await postFetch(`watchedMovie`, { movieId, watched: true, userEmail })
-  window.location.reload()
-}
-
 type Props = {
   movieId: number
   title: string
@@ -80,9 +82,51 @@ type Props = {
   image: string | null
   isWatchedList?: boolean
   userEmail?: string
+  watchedDate?: Date | null
+  plannedDate?: Date | null
 }
 
 export default function MovieCard(props: Props) {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [watchedDateInput, setWatchedDateInput] = useState('')
+
+  const formattedWatchedDate = props.watchedDate
+    ? formatYYYYMMDD(props.watchedDate)
+    : null
+  const formattedPlannedDate = props.plannedDate
+    ? formatYYYYMMDD(props.plannedDate)
+    : null
+
+  const handleWatchedClick = () => {
+    setModalOpen(true)
+  }
+
+  const handleModalClose = () => {
+    setModalOpen(false)
+    setWatchedDateInput('')
+  }
+
+  const handleEditClick = () => {
+    setEditModalOpen(true)
+  }
+
+  const handleEditModalClose = () => {
+    setEditModalOpen(false)
+  }
+
+  const handleWatchedSubmit = async () => {
+    if (!props.userEmail) return
+
+    await postFetch(`watchedMovie`, {
+      movieId: props.movieId,
+      watched: true,
+      userEmail: props.userEmail,
+      watchedDate: watchedDateInput || null
+    })
+    window.location.reload()
+  }
+
   return (
     <Grid item>
       <StyledRoot>
@@ -101,7 +145,19 @@ export default function MovieCard(props: Props) {
                 </h2>
               </Box>
             </Box>
-            <Box className="flex md:mt-8 mt-4 justify-between items-center">
+            <Box className="md:mt-8 mt-4">
+              {formattedWatchedDate && (
+                <p className="text-xxs md:text-xs m-0 mb-1 text-white text-left">
+                  みた日: {formattedWatchedDate}
+                </p>
+              )}
+              {!formattedWatchedDate && formattedPlannedDate && (
+                <p className="text-xxs md:text-xs m-0 mb-1 text-white text-left">
+                  みたい日: {formattedPlannedDate}
+                </p>
+              )}
+            </Box>
+            <Box className="flex justify-between items-center">
               <Box
                 component="a"
                 href={props.siteURL}
@@ -113,6 +169,13 @@ export default function MovieCard(props: Props) {
               </Box>
               <Box
                 component="div"
+                onClick={handleEditClick}
+                className="text-white md:mt-12 mt-4 hover:text-blue-300 text-xxs md:text-xs cursor-pointer"
+              >
+                編集
+              </Box>
+              <Box
+                component="div"
                 onClick={() => clickDeleteHandler(props.movieId, props.title)}
                 className="text-white md:mt-12 mt-4 hover:text-red-500 text-xxs md:text-xs"
               >
@@ -121,9 +184,7 @@ export default function MovieCard(props: Props) {
               {props.isWatchedList && props.userEmail !== undefined && (
                 <Box
                   component="div"
-                  onClick={() =>
-                    clickWatchedHandler(props.movieId, props.userEmail ?? '')
-                  }
+                  onClick={handleWatchedClick}
                   className="text-white md:mt-12 mt-4 hover:text-yellow-300 text-xxs md:text-xs"
                 >
                   みた！
@@ -133,6 +194,41 @@ export default function MovieCard(props: Props) {
           </Box>
         </StyledContent>
       </StyledRoot>
+
+      <Dialog open={modalOpen} onClose={handleModalClose}>
+        <DialogTitle>みた日を入力</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="みた日（任意）"
+            type="date"
+            value={watchedDateInput}
+            onChange={(e) => setWatchedDateInput(e.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            fullWidth
+            sx={{ mt: 2 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleModalClose}>キャンセル</Button>
+          <Button onClick={handleWatchedSubmit} variant="contained">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <MyMovieEditor
+        open={editModalOpen}
+        handleCloseAction={handleEditModalClose}
+        movieId={props.movieId}
+        initialTitle={props.title}
+        initialSiteURL={props.siteURL}
+        initialImage={props.image}
+        initialWatchedDate={props.watchedDate}
+        initialPlannedDate={props.plannedDate}
+        isWatchedList={props.isWatchedList}
+      />
     </Grid>
   )
 }

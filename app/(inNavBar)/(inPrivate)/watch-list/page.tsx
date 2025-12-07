@@ -28,7 +28,8 @@ export default async function WatchList() {
       siteURL: true,
       image: true,
       order: true,
-      watched: true
+      watched: true,
+      plannedDate: true
     },
     orderBy: {
       order: 'asc'

@@ -57,8 +57,8 @@ model VerificationToken {
 
 model Movie {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
   title     String
   siteURL   String?
   image     String?
@@ -67,6 +67,8 @@ model Movie {
   order     Int      @default(autoincrement())
   watched   Boolean  @default(false)
   publicationDate DateTime? @db.Date
+  watchedDate DateTime? @db.Date
+  plannedDate DateTime? @db.Date
 }
 
 model PublicMovie {

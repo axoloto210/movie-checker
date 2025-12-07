@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "TZ=Asia/Tokyo next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --config .prettierrc 'app/**/*.{ts,tsx}' --write",
     "postinstall": "prisma generate",
     "prepare": "husky install",
-    "prisma-studio": "pnpm exec prisma studio",
+    "prisma-studio": "TZ=Asia/Tokyo pnpm exec prisma studio",
     "type-check": "tsc --noEmit",
     "vercel-build": "prisma migrate deploy && next build",
     "storybook": "storybook dev -p 6006",
@@ -80,6 +80,6 @@
     }
   },
   "engines": {
-    "node": ">=22.17.1"
+    "node": ">=24.4.1"
   }
 }

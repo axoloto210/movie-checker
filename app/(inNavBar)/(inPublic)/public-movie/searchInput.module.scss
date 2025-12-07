@@ -3,7 +3,7 @@
     max-width: 448px;
     position: relative;
 }
-.search-area {
+.searchArea {
     align-items: center;
     bottom: 0px;
     display: flex;
@@ -13,13 +13,13 @@
     position: absolute;
     top: 0px;
 }
-.search-icon {
+.searchIcon {
     color: #718096;
     height: 16px;
     width: 16px;
 }
 
-.input-area {
+.inputArea {
     background-color: #f7fafc;
     border-color: #d2d6dc;
     border-radius: 8px;
@@ -37,7 +37,7 @@
       border-color: rgb(59 130 246);
   }
 }
-.search-button {
+.searchButton {
     background-color: #2563eb;
     border-radius: 8px;
     bottom: 10px;
@@ -58,7 +58,7 @@
   }
 }
 
-.not-found{
+.notFound{
     color:red;
     margin: 0 auto;
 }

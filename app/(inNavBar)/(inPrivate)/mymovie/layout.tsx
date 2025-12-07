@@ -7,7 +7,7 @@ export default function MyMovieLayout({
 }) {
   return (
     <>
-      <ResponsiveAppBar title={'見た映画'} />
+      <ResponsiveAppBar title={'みた映画'} />
       {children}
     </>
   )

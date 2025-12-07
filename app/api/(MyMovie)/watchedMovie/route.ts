@@ -12,16 +12,19 @@ export type RegisterMovieResult = {
 const schema = z.object({
   movieId: z.number(),
   watched: z.boolean(),
-  userEmail: z.string()
+  userEmail: z.string(),
+  watchedDate: z.string().nullable().optional()
 })
 
 export async function POST(req: NextRequest) {
   try {
-    const { movieId, watched, userEmail } = schema.parse(await req.json())
+    const { movieId, watched, userEmail, watchedDate } = schema.parse(
+      await req.json()
+    )
 
     const user = await getUserId(userEmail)
     if (user !== null) {
-      updateWatched({ movieId, watched }, user.id)
+      updateWatched({ movieId, watched, watchedDate }, user.id)
     }
 
     const result: RegisterMovieResult = {
@@ -55,6 +58,7 @@ async function updateWatched(
   movie: {
     movieId: number
     watched: boolean
+    watchedDate?: string | null
   },
   authorId: string
 ) {
@@ -77,7 +81,8 @@ async function updateWatched(
     },
     data: {
       watched: movie.watched,
-      order: newOrder
+      order: newOrder,
+      watchedDate: movie.watchedDate ? new Date(movie.watchedDate) : null
     }
   })
   return movie.movieId

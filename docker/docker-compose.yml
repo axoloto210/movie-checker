@@ -1,10 +1,12 @@
 services:
   postgres:
     image: postgres:16
+    command: postgres -c timezone=Asia/Tokyo
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: password
+      TZ: Asia/Tokyo
     ports:
       - "5432:5432"
     volumes:
