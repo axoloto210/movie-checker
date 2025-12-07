@@ -6,7 +6,7 @@
     "dev": "TZ=Asia/Tokyo next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --config .prettierrc 'app/**/*.{ts,tsx}' --write",
     "postinstall": "prisma generate",
     "prepare": "husky install",
@@ -28,17 +28,19 @@
     "@prisma/client": "^5.22.0",
     "@vercel/analytics": "^1.5.0",
     "dayjs": "^1.11.13",
-    "next": "15.5.7",
+    "next": "16.0.7",
     "next-auth": "^4.24.11",
     "nextjs-toploader": "^1.6.12",
-    "react": "19.1.2",
-    "react-dom": "19.1.2",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-hook-form": "^7.60.0",
     "sharp": "^0.32.6",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^15.5.7",
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.1",
+    "@next/bundle-analyzer": "^16.0.7",
     "@storybook/addon-essentials": "^7.6.20",
     "@storybook/addon-interactions": "^7.6.20",
     "@storybook/addon-links": "^7.6.20",
@@ -53,12 +55,12 @@
     "@types/color": "^3.0.6",
     "@types/jest": "^29.5.14",
     "@types/node": "^24.0.14",
-    "@types/react": "19.1.5",
-    "@types/react-dom": "19.1.5",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.21",
     "color": "^4.2.3",
     "eslint": "^9.31.0",
-    "eslint-config-next": "^15.5.7",
+    "eslint-config-next": "^16.0.7",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.8.0",
     "husky": "^8.0.3",
@@ -75,11 +77,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.1.5",
-      "@types/react-dom": "19.1.5"
+      "@types/react": "19.2.7",
+      "@types/react-dom": "19.2.3"
     }
-  },
-  "engines": {
-    "node": ">=24.4.1"
   }
 }

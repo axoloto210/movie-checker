@@ -36,7 +36,7 @@ const MovieRegistrationForm = (props: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch
   } = useForm({ defaultValues })
 
@@ -46,6 +46,7 @@ const MovieRegistrationForm = (props: Props) => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>(
     'success'
   )
+  const [isRegistered, setIsRegistered] = useState(false)
 
   const onSubmit = async (movie: RegisteredMovie) => {
     const body = {
@@ -62,6 +63,7 @@ const MovieRegistrationForm = (props: Props) => {
 
     await postFetch<object, RegisterMovieResult>('/registerMovie', body)
       .then(({ title, watched }) => {
+        setIsRegistered(true)
         setSnackbarMessage(`「${title}」を登録しました`)
         setSnackbarSeverity('success')
         setSnackbarOpen(true)
@@ -160,7 +162,11 @@ const MovieRegistrationForm = (props: Props) => {
         )}
 
         <div className="flex justify-center">
-          <button type="submit" className="blue-button mt-6">
+          <button
+            type="submit"
+            className="blue-button mt-6"
+            disabled={isSubmitting || isRegistered}
+          >
             登録
           </button>
         </div>
