@@ -17,18 +17,36 @@ const schema = z.object({
   siteURL: z.string(),
   image: z.string(),
   watched: z.boolean(),
-  userEmail: z.string()
+  userEmail: z.string(),
+  watchedDate: z.string().nullable().optional(),
+  plannedDate: z.string().nullable().optional()
 })
 
 export async function POST(req: NextRequest) {
   try {
-    const { title, siteURL, image, watched, userEmail } = schema.parse(
-      await req.json()
-    )
+    const {
+      title,
+      siteURL,
+      image,
+      watched,
+      userEmail,
+      watchedDate,
+      plannedDate
+    } = schema.parse(await req.json())
 
     const user = await getUserId(userEmail)
     if (user !== null) {
-      createRegisteredMovie({ title, siteURL, image, watched }, user.id)
+      createRegisteredMovie(
+        {
+          title,
+          siteURL,
+          image,
+          watched,
+          watchedDate: watchedDate || undefined,
+          plannedDate: plannedDate || undefined
+        },
+        user.id
+      )
     }
 
     const result: RegisterMovieResult = {
@@ -63,8 +81,13 @@ async function getUserId(userEmail: string) {
 async function createRegisteredMovie(movie: RegisteredMovie, authorId: string) {
   await prisma.movie.create({
     data: {
-      ...movie,
-      authorId
+      title: movie.title,
+      siteURL: movie.siteURL,
+      image: movie.image || null,
+      watched: movie.watched || false,
+      authorId,
+      watchedDate: movie.watchedDate ? new Date(movie.watchedDate) : null,
+      plannedDate: movie.plannedDate ? new Date(movie.plannedDate) : null
     }
   })
   return movie

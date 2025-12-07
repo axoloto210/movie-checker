@@ -1,13 +1,16 @@
 import { RegisterMovieResult } from '@/api/(MyMovie)/registerMovie/route'
 import { postFetch } from '@/lib/fetch'
-import { Checkbox, FormControlLabel } from '@mui/material'
+import { Switch, FormControlLabel, Snackbar, Alert } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 export type RegisteredMovie = {
   title: string
   siteURL: string
   image: string | null
   watched?: boolean
+  watchedDate?: string
+  plannedDate?: string
 }
 
 type Props = {
@@ -18,42 +21,63 @@ const MovieRegistrationForm = (props: Props) => {
   const placeholders = {
     title: 'タイトル',
     siteURL: 'サイトURL',
-    image: '画像URL'
+    image: '画像URL（任意）'
   }
 
   const defaultValues: RegisteredMovie = {
     title: '',
     siteURL: '',
     image: '',
-    watched: false
+    watched: false,
+    watchedDate: '',
+    plannedDate: ''
   }
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm({ defaultValues })
+
+  const isWatched = watch('watched')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>(
+    'success'
+  )
 
   const onSubmit = async (movie: RegisteredMovie) => {
     const body = {
-      ...movie,
-      userEmail: props.userEmail
+      title: movie.title,
+      siteURL: movie.siteURL,
+      image: movie.image,
+      watched: movie.watched,
+      userEmail: props.userEmail,
+      // watchedがtrueならwatchedDateを、falseならplannedDateを送信
+      ...(movie.watched
+        ? { watchedDate: movie.watchedDate || null }
+        : { plannedDate: movie.plannedDate || null })
     }
 
     await postFetch<object, RegisterMovieResult>('/registerMovie', body)
-      .then(({ title, siteURL, image, watched }) => {
-        alert(
-          '入力データを登録しました。\n' +
-            `タイトル： ${title} \n` +
-            `サイトURL： ${siteURL} \n` +
-            `画像URL： ${image}`
-        )
+      .then(({ title, watched }) => {
+        setSnackbarMessage(`「${title}」を登録しました`)
+        setSnackbarSeverity('success')
+        setSnackbarOpen(true)
 
-        window.location.href = watched ? '/mymovie' : '/watch-list'
+        // 1.5秒後にリダイレクト
+        setTimeout(() => {
+          window.location.href = watched ? '/mymovie' : '/watch-list'
+        }, 1500)
       })
-      .catch(() =>
-        alert('エラーが発生しました。時間をあけて再度お試しください。')
-      )
+      .catch(() => {
+        setSnackbarMessage(
+          'エラーが発生しました。時間をあけて再度お試しください。'
+        )
+        setSnackbarSeverity('error')
+        setSnackbarOpen(true)
+      })
   }
 
   const onError = (err: unknown) => console.log(err)
@@ -67,6 +91,13 @@ const MovieRegistrationForm = (props: Props) => {
         onSubmit={handleSubmit(onSubmit, onError)}
         className="max-w-sm mx-auto"
       >
+        <div className="mb-4">
+          <FormControlLabel
+            control={<Switch id="watched" {...register('watched')} />}
+            label="みた！"
+          />
+        </div>
+
         <label htmlFor="title" className={'form-label'}>
           {placeholders.title}
         </label>
@@ -101,16 +132,54 @@ const MovieRegistrationForm = (props: Props) => {
           className={'form-text-area'}
           {...register('image')}
         ></textarea>
-        <FormControlLabel
-          control={<Checkbox id="watched" {...register('watched')} />}
-          label="みた！"
-        />
+
+        {isWatched ? (
+          <>
+            <label htmlFor="watched-date" className={'form-label'}>
+              みた日（任意）
+            </label>
+            <input
+              id="watched-date"
+              type="date"
+              className={'form-text-area'}
+              {...register('watchedDate')}
+            />
+          </>
+        ) : (
+          <>
+            <label htmlFor="planned-date" className={'form-label'}>
+              みたい日（任意）
+            </label>
+            <input
+              id="planned-date"
+              type="date"
+              className={'form-text-area'}
+              {...register('plannedDate')}
+            />
+          </>
+        )}
+
         <div className="flex justify-center">
           <button type="submit" className="blue-button mt-6">
             登録
           </button>
         </div>
       </form>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   )
 }
