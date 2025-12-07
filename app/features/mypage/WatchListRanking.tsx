@@ -34,7 +34,8 @@ export async function WatchListRanking() {
       image: true,
       order: true,
       watched: true,
-      publicationDate: true
+      publicationDate: true,
+      plannedDate: true
     },
     orderBy: {
       order: 'asc'

@@ -12,6 +12,7 @@ export const MovieRankingCard = (
     order: number
     publicationDate?: Date | null
     watchedDate?: Date | null
+    plannedDate?: Date | null
   },
   index: number
 ) => {
@@ -20,6 +21,9 @@ export const MovieRankingCard = (
     : null
   const formattedWatchedDate = movie.watchedDate
     ? formatYYYYMMDD(movie.watchedDate)
+    : null
+  const formattedPlannedDate = movie.plannedDate
+    ? formatYYYYMMDD(movie.plannedDate)
     : null
   return (
     <div>
@@ -57,6 +61,13 @@ export const MovieRankingCard = (
           <p
             className={styles.movieLabel}
           >{`みた日: ${formattedWatchedDate}`}</p>
+        </div>
+      )}
+      {formattedPlannedDate && (
+        <div>
+          <p
+            className={styles.movieLabel}
+          >{`みたい日: ${formattedPlannedDate}`}</p>
         </div>
       )}
     </div>
