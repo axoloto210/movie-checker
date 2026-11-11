@@ -1,9 +1,8 @@
-import type { Preview } from '@storybook/react'
-import '../app/globals.css' // replace with the name of your tailwind css file
+import type { Preview } from '@storybook/nextjs-vite'
+import '../app/globals.css'
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
