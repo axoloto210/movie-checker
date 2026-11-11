@@ -1,8 +1,7 @@
 'use server'
 
-import { authOptions } from '@/api/auth/authOptions'
 import prisma from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -67,7 +66,7 @@ export default async function searchPublicMovies(
  * @returns
  */
 export async function registerWatchedMovieAction(movieId: number) {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   if (session?.user?.email == null) {
     return
@@ -125,7 +124,7 @@ async function getPublicMovieByMovieId(movieId: number) {
  * @returns
  */
 export async function registerWatchListAction(movieId: number) {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   if (session?.user?.email == null) {
     return

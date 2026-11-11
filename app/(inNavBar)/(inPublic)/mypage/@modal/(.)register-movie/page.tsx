@@ -2,7 +2,7 @@
 
 import { Modal } from '@/components/Modal'
 import { MovieRegistrationForm } from '@/features/movieRegistration/MovieRegistrationForm'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/lib/auth-client'
 
 export default function RegisterMovieModal() {
   const { data: session } = useSession()

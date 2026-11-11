@@ -1,13 +1,12 @@
-import { authOptions } from '@/api/auth/authOptions'
 import { LoginCaveat } from '@/components/LoginCaveat'
 import { WatchListRanking } from '@/features/mypage/WatchListRanking'
 import { WatchedMovieRanking } from '@/features/mypage/WatchedMovieRanking'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 
 import Link from 'next/link'
 
 export default async function Mypage() {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   return (
     <div className="mt-4">

@@ -2,7 +2,7 @@
 import { useActionState } from 'react'
 import styles from '@/(inNavBar)/(inPublic)/public-movie/searchInput.module.scss'
 import searchPublicMovies from '@/features/public-movie/actions'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/lib/auth-client'
 import { useFormStatus } from 'react-dom'
 import { PublicMovieCard } from './PublicMovieCard'
 import { PublicMovie } from './getAllPublicMovies'
@@ -28,7 +28,7 @@ export function PublicMovieList(props: Props) {
     message: undefined
   }
 
-  const { status } = useSession()
+  const { data: session } = useSession()
 
   const [state, formAction] = useActionState(searchPublicMovies, initialState)
 
@@ -71,7 +71,7 @@ export function PublicMovieList(props: Props) {
           return (
             <PublicMovieCard
               key={publicMovie.id}
-              isLogin={status === 'authenticated'}
+              isLogin={session != null}
               {...publicMovie}
             />
           )

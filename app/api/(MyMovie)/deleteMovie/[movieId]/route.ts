@@ -1,6 +1,5 @@
-import { authOptions } from '@/api/auth/authOptions'
 import prisma from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 import { NextRequest } from 'next/server'
 
 export async function DELETE(
@@ -8,7 +7,7 @@ export async function DELETE(
   props: { params: Promise<{ movieId: string }> }
 ) {
   const params = await props.params
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   if (!session) {
     return Response.json({ status: 500 })

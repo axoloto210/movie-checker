@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signInWithGitHub, signOut, useSession } from '@/lib/auth-client'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -69,7 +69,7 @@ function ResponsiveAppBar(props: Props) {
 
   const handleLogIn = () => {
     setAnchorElUser(null)
-    signIn()
+    signInWithGitHub()
   }
 
   const handleLogOut = () => {

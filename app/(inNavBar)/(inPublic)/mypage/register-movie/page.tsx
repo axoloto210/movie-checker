@@ -3,17 +3,17 @@
 import { LoginCaveat } from '@/components/LoginCaveat'
 import { LoginLoading } from '@/components/LoginLoading'
 import { MovieRegistrationForm } from '@/features/movieRegistration/MovieRegistrationForm'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/lib/auth-client'
 
 export default function RegisterMovie() {
-  const { data: session, status } = useSession()
+  const { data: session, isPending } = useSession()
   const user = session?.user
 
   return (
     <>
-      {status === 'loading' ? (
+      {isPending ? (
         <LoginLoading />
-      ) : status === 'authenticated' ? (
+      ) : session != null ? (
         <>{user?.email && <MovieRegistrationForm userEmail={user?.email} />}</>
       ) : (
         <LoginCaveat />
