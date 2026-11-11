@@ -1,5 +1,5 @@
-import ResponsiveAppBar from 'app/components/Header'
-import 'app/(inNavBar)/(inPublic)/mypage/modal.css'
+import ResponsiveAppBar from '@/components/Header'
+import '@/(inNavBar)/(inPublic)/mypage/modal.css'
 
 export default function MyPageLayout({
   children,

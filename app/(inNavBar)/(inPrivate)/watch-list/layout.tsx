@@ -1,4 +1,4 @@
-import ResponsiveAppBar from 'app/components/Header'
+import ResponsiveAppBar from '@/components/Header'
 
 export default function MyMovieLayout({
   children

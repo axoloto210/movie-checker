@@ -29,7 +29,7 @@
     "@vercel/analytics": "^1.5.0",
     "better-auth": "1.7.20",
     "dayjs": "^1.11.13",
-    "next": "16.2.6",
+    "next": "16.4.6",
     "nextjs-toploader": "^1.6.12",
     "react": "19.2.6",
     "react-dom": "19.2.6",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
-    "@next/bundle-analyzer": "^16.2.6",
+    "@next/bundle-analyzer": "^16.4.6",
     "@storybook/addon-docs": "^10.6.7",
     "@storybook/addon-links": "^10.6.7",
     "@storybook/addon-onboarding": "^10.6.7",
@@ -61,7 +61,7 @@
     "autoprefixer": "^10.4.21",
     "color": "^4.2.3",
     "eslint": "^9.31.0",
-    "eslint-config-next": "^16.0.7",
+    "eslint-config-next": "^16.4.6",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^10.6.7",
     "husky": "^8.0.3",
@@ -75,7 +75,7 @@
     "storybook": "^10.6.7",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.3",
     "vite": "^7.0.0",
     "vitest": "^5.1.0"
   }
