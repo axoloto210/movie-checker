@@ -1,4 +1,5 @@
-import prisma from '@/lib/prisma'
+import { updateMovie } from '@/data/movies'
+import { toErrorResponse } from '@/data/errors'
 import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
@@ -19,31 +20,14 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
-    const { movieId, title, siteURL, image, watchedDate, plannedDate } =
-      schema.parse(await req.json())
+    const { movieId, ...input } = schema.parse(await req.json())
+    await updateMovie(movieId, input)
 
-    await prisma.movie.update({
-      where: {
-        id: movieId
-      },
-      data: {
-        title,
-        siteURL,
-        image: image || null,
-        watchedDate: watchedDate ? new Date(watchedDate) : null,
-        plannedDate: plannedDate ? new Date(plannedDate) : null
-      }
-    })
-
-    const result: UpdateMovieResult = {
-      movieId,
-      status: 200
-    }
     revalidatePath('/mymovie')
     revalidatePath('/watch-list')
     revalidatePath('/mypage')
-    return Response.json(result)
+    return Response.json({ movieId, status: 200 } satisfies UpdateMovieResult)
   } catch (error) {
-    return Response.json({ status: 500 })
+    return toErrorResponse(error)
   }
 }

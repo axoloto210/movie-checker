@@ -1,67 +1,24 @@
-import prisma from '@/lib/prisma'
-import { getSession } from '@/lib/auth'
+import { deleteMovie } from '@/data/movies'
+import { toErrorResponse } from '@/data/errors'
+import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
+import { z } from 'zod'
+
+const movieIdSchema = z.coerce.number().int()
 
 export async function DELETE(
   _req: NextRequest,
   props: { params: Promise<{ movieId: string }> }
 ) {
-  const params = await props.params
-  const session = await getSession()
-
-  if (!session) {
-    return Response.json({ status: 500 })
-  }
-
-  const movieId = params.movieId
-
-  const user = session.user
-  if (user === null) {
-    return Response.json({ status: 500 })
-  }
-
-  const userEmail = user?.email
-
-  if (!hasUserEmail(userEmail)) {
-    return Response.json({ status: 500 })
-  }
-
   try {
-    const userId = await getUserId(userEmail)
-    if (userId === null || userId === undefined) {
-      throw new Error('User Not Exists')
-    }
-    await deleteMovie(Number(movieId), userId)
+    const { movieId } = await props.params
+    await deleteMovie(movieIdSchema.parse(movieId))
+
+    revalidatePath('/mymovie')
+    revalidatePath('/watch-list')
+    revalidatePath('/mypage')
     return Response.json({ status: 200 })
   } catch (error) {
-    console.log(error)
-    return Response.json({ status: 500 })
+    return toErrorResponse(error)
   }
-}
-
-function hasUserEmail(
-  userEmail: string | undefined | null
-): userEmail is string {
-  return userEmail != null
-}
-
-async function getUserId(userEmail: string) {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: userEmail
-    },
-    select: {
-      id: true
-    }
-  })
-  return user?.id
-}
-
-async function deleteMovie(movieId: number, userId: string) {
-  await prisma.movie.delete({
-    where: {
-      id: movieId,
-      authorId: userId
-    }
-  })
 }

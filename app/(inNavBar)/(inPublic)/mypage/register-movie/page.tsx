@@ -7,14 +7,13 @@ import { useSession } from '@/lib/auth-client'
 
 export default function RegisterMovie() {
   const { data: session, isPending } = useSession()
-  const user = session?.user
 
   return (
     <>
       {isPending ? (
         <LoginLoading />
       ) : session != null ? (
-        <>{user?.email && <MovieRegistrationForm userEmail={user?.email} />}</>
+        <MovieRegistrationForm />
       ) : (
         <LoginCaveat />
       )}

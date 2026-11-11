@@ -1,14 +1,12 @@
 'use server'
 
-import prisma from '@/lib/prisma'
-import { getSession } from '@/lib/auth'
+import { verifySession } from '@/data/auth'
+import { addPublicMovieToMyMovies } from '@/data/movies'
+import { searchPublicMoviesByTitle } from '@/data/publicMovies'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import {
-  PublicMovie,
-  makePublicMovieFromRawPublicMovies
-} from './getAllPublicMovies'
+import type { PublicMovie } from './publicMovie'
 
 export type SearchPublicMoviesState = {
   titleInput: string
@@ -28,124 +26,40 @@ export default async function searchPublicMovies(
   if (!parse.success) {
     return { ...prevState, message: '入力が不正なため検索できません。' }
   }
-  const searchInput = parse.data
 
   try {
-    const rawPublicMovies = await prisma.publicMovie.findMany({
-      where: {
-        title: { contains: searchInput.titleInput }
-      },
-      orderBy: [
-        {
-          publicationDate: { sort: 'desc', nulls: 'last' }
-        }
-      ]
-    })
-
-    if (rawPublicMovies.length === 0) {
-      return {
-        titleInput: prevState.titleInput,
-        publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies),
-        message: '映画がみつかりませんでした。'
-      }
-    }
+    const publicMovies = await searchPublicMoviesByTitle(parse.data.titleInput)
 
     return {
       titleInput: prevState.titleInput,
-      publicMovies: makePublicMovieFromRawPublicMovies(rawPublicMovies),
-      message: undefined
+      publicMovies,
+      message:
+        publicMovies.length === 0 ? '映画がみつかりませんでした。' : undefined
     }
-  } catch (error: unknown) {
+  } catch {
     return { ...prevState, message: '検索に失敗しました。' }
   }
 }
 
+const movieIdSchema = z.number().int()
+
 /**
  * publicMovieの映画情報をMovieへ登録します。
- * @param movieId
- * @returns
  */
 export async function registerWatchedMovieAction(movieId: number) {
-  const session = await getSession()
-
-  if (session?.user?.email == null) {
-    return
-  }
-  const authorId = await getUserId(session.user.email)
-  if (authorId == null) {
-    return
-  }
-
-  const publicMovieData = await getPublicMovieByMovieId(movieId)
-  if (publicMovieData === null) {
-    return
-  }
-
-  await prisma.movie.create({
-    data: {
-      ...publicMovieData,
-      authorId,
-      watched: true
-    }
-  })
+  await verifySession()
+  await addPublicMovieToMyMovies(movieIdSchema.parse(movieId), true)
 
   revalidatePath('/mymovie') //みた映画情報を読み込み直す。
   redirect('/mymovie')
 }
 
-async function getUserId(userEmail: string) {
-  const userId = await prisma.user.findUnique({
-    where: {
-      email: userEmail
-    },
-    select: {
-      id: true
-    }
-  })
-  return userId?.id
-}
-
-async function getPublicMovieByMovieId(movieId: number) {
-  const publicMovie = await prisma.publicMovie.findUnique({
-    where: { id: movieId },
-    select: {
-      title: true,
-      siteURL: true,
-      image: true,
-      publicationDate: true
-    }
-  })
-  return publicMovie
-}
-
 /**
  * publicMovieの映画情報をMovieへwatchListに登録します。
- * @param movieId
- * @returns
  */
 export async function registerWatchListAction(movieId: number) {
-  const session = await getSession()
-
-  if (session?.user?.email == null) {
-    return
-  }
-  const authorId = await getUserId(session.user.email)
-  if (authorId == null) {
-    return
-  }
-
-  const publicMovieData = await getPublicMovieByMovieId(movieId)
-  if (publicMovieData === null) {
-    return
-  }
-
-  await prisma.movie.create({
-    data: {
-      ...publicMovieData,
-      authorId,
-      watched: false
-    }
-  })
+  await verifySession()
+  await addPublicMovieToMyMovies(movieIdSchema.parse(movieId), false)
 
   revalidatePath('/watch-list') //みたい映画情報を読み込み直す。
   redirect('/watch-list')

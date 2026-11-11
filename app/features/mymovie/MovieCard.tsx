@@ -81,7 +81,6 @@ type Props = {
   siteURL: string
   image: string | null
   isWatchedList?: boolean
-  userEmail?: string
   watchedDate?: Date | null
   plannedDate?: Date | null
 }
@@ -116,12 +115,9 @@ export default function MovieCard(props: Props) {
   }
 
   const handleWatchedSubmit = async () => {
-    if (!props.userEmail) return
-
     await postFetch(`watchedMovie`, {
       movieId: props.movieId,
       watched: true,
-      userEmail: props.userEmail,
       watchedDate: watchedDateInput || null
     })
     window.location.reload()
@@ -181,7 +177,7 @@ export default function MovieCard(props: Props) {
               >
                 削除
               </Box>
-              {props.isWatchedList && props.userEmail !== undefined && (
+              {props.isWatchedList && (
                 <Box
                   component="div"
                   onClick={handleWatchedClick}
