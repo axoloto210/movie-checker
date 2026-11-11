@@ -1,11 +1,10 @@
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
-import { authOptions } from 'app/api/auth/authOptions'
 import { MovieDnDList } from 'app/features/mymovie/MovieDnDList'
 import prisma from 'app/lib/prisma'
 
 export default async function WatchList() {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
   if (!session) {
     redirect('/mypage')
   }

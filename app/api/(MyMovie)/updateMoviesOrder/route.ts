@@ -1,6 +1,5 @@
-import { authOptions } from '@/api/auth/authOptions'
 import prisma from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
@@ -17,7 +16,7 @@ const schema = z.object({
 type MoviesOrder = z.infer<typeof schema>['moviesOrder']
 
 export async function PUT(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   if (!session) {
     return Response.json({ status: 500 })

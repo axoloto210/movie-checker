@@ -1,6 +1,5 @@
-import { authOptions } from '@/api/auth/authOptions'
 import prisma from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 import styles from '@/features/mypage/watchedMovieRanking.module.scss'
@@ -10,7 +9,7 @@ import Link from 'next/link'
 const rankLimit = 3 as const
 
 export async function WatchListRanking() {
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
   if (!session) {
     redirect('/mypage')
   }

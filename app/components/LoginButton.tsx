@@ -1,6 +1,6 @@
 'use client'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signInWithGitHub, signOut, useSession } from '@/lib/auth-client'
 
 export default function Login() {
   const { data: session } = useSession()
@@ -16,7 +16,7 @@ export default function Login() {
   } else {
     return (
       <div>
-        <button className={'blue-button'} onClick={() => signIn()}>
+        <button className={'blue-button'} onClick={() => signInWithGitHub()}>
           ログイン
         </button>
       </div>
