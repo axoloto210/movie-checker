@@ -27,7 +27,6 @@ type Props = {
     plannedDate?: Date | null
   }[]
   isWatchList?: boolean
-  userEmail?: string
 }
 
 export function MovieDnDList(props: Props) {
@@ -95,7 +94,6 @@ export function MovieDnDList(props: Props) {
                     title={movie.title}
                     siteURL={movie.siteURL ?? '/'}
                     image={movie.image}
-                    userEmail={props.userEmail}
                     isWatchedList={props.isWatchList}
                     watchedDate={movie.watchedDate}
                     plannedDate={movie.plannedDate}

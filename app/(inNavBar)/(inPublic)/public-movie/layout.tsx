@@ -1,4 +1,4 @@
-import ResponsiveAppBar from 'app/components/Header'
+import ResponsiveAppBar from '@/components/Header'
 
 //TODO: ナビゲーションバーを使用するlayoutを統一
 export default function PublicMovieLayout({

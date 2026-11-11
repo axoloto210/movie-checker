@@ -6,10 +6,5 @@ import { useSession } from '@/lib/auth-client'
 
 export default function RegisterMovieModal() {
   const { data: session } = useSession()
-  const user = session?.user
-  return (
-    <Modal>
-      {user?.email && <MovieRegistrationForm userEmail={user?.email} />}
-    </Modal>
-  )
+  return <Modal>{session && <MovieRegistrationForm />}</Modal>
 }

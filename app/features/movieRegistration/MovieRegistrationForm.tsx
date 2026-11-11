@@ -1,4 +1,4 @@
-import { RegisterMovieResult } from '@/api/(MyMovie)/registerMovie/route'
+import type { RegisterMovieResult } from '@/api/(MyMovie)/registerMovie/route'
 import { postFetch } from '@/lib/fetch'
 import { Switch, FormControlLabel, Snackbar, Alert } from '@mui/material'
 import { useForm } from 'react-hook-form'
@@ -13,11 +13,7 @@ export type RegisteredMovie = {
   plannedDate?: string
 }
 
-type Props = {
-  userEmail: string
-}
-
-const MovieRegistrationForm = (props: Props) => {
+const MovieRegistrationForm = () => {
   const placeholders = {
     title: 'タイトル',
     siteURL: 'サイトURL',
@@ -54,7 +50,6 @@ const MovieRegistrationForm = (props: Props) => {
       siteURL: movie.siteURL,
       image: movie.image,
       watched: movie.watched,
-      userEmail: props.userEmail,
       // watchedがtrueならwatchedDateを、falseならplannedDateを送信
       ...(movie.watched
         ? { watchedDate: movie.watchedDate || null }

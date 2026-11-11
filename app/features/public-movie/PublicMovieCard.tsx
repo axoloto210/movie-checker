@@ -1,5 +1,5 @@
 import styles from '@/features/public-movie/publicMovieCard.module.scss'
-import { PublicMovie } from '@/features/public-movie/getAllPublicMovies'
+import type { PublicMovie } from '@/features/public-movie/publicMovie'
 import {
   registerWatchedMovieAction,
   registerWatchListAction

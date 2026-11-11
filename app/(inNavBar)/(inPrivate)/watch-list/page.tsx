@@ -1,49 +1,10 @@
-import { getSession } from '@/lib/auth'
-import { redirect } from 'next/navigation'
-import { MovieDnDList } from 'app/features/mymovie/MovieDnDList'
-import prisma from 'app/lib/prisma'
+import { verifySession } from '@/data/auth'
+import { getMyWatchList } from '@/data/movies'
+import { MovieDnDList } from '@/features/mymovie/MovieDnDList'
 
 export default async function WatchList() {
-  const session = await getSession()
-  if (!session) {
-    redirect('/mypage')
-  }
-  const author = await prisma.user.findFirst({
-    where: { email: session.user?.email },
-    select: { id: true }
-  })
+  await verifySession()
+  const movies = await getMyWatchList()
 
-  if (author === null) {
-    redirect('/mypage')
-  }
-  const movies = await prisma.movie.findMany({
-    where: {
-      authorId: author.id,
-      watched: false
-    },
-    select: {
-      id: true,
-      title: true,
-      siteURL: true,
-      image: true,
-      order: true,
-      watched: true,
-      plannedDate: true
-    },
-    orderBy: {
-      order: 'asc'
-    }
-  })
-
-  return (
-    <>
-      {session && (
-        <MovieDnDList
-          movies={movies}
-          isWatchList
-          userEmail={session.user?.email ?? ''}
-        />
-      )}
-    </>
-  )
+  return <MovieDnDList movies={movies} isWatchList />
 }

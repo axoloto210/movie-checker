@@ -5,7 +5,7 @@ import searchPublicMovies from '@/features/public-movie/actions'
 import { useSession } from '@/lib/auth-client'
 import { useFormStatus } from 'react-dom'
 import { PublicMovieCard } from './PublicMovieCard'
-import { PublicMovie } from './getAllPublicMovies'
+import type { PublicMovie } from './publicMovie'
 
 type Props = {
   publicMovies: PublicMovie[]
